@@ -3,9 +3,16 @@ import TextField from "@mui/material/TextField";
 
 type MyInput = React.ComponentProps<typeof TextField> & {};
 
-const Input: React.FC<MyInput> = (props) => {
-  const { label, type, value, onChange, onBlur, error, ...rest } = props;
-
+const Input: React.FC<MyInput> = ({
+  variant = "outlined",
+  label = "",
+  type = "text",
+  value = "",
+  onChange = () => {},
+  onBlur = () => {},
+  error = false,
+  ...props
+}) => {
   return (
     <TextField
       label={label}
@@ -14,7 +21,7 @@ const Input: React.FC<MyInput> = (props) => {
       onChange={onChange}
       onBlur={onBlur}
       error={error}
-      {...rest}
+      {...props}
     />
   );
 };
