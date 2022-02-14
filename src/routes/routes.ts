@@ -1,4 +1,4 @@
-import { Login } from "src/components";
+import { Login, DashBoard } from "src/components";
 
 export interface IRoute {
   path: string;
@@ -17,6 +17,13 @@ const routes: Array<IRoute> = [
     authorizers: [],
     isProtectiveRoute: false,
     key: "login",
+  },
+  {
+    path: "/dashboard",
+    element: DashBoard,
+    authorizers: [],
+    isProtectiveRoute: true,
+    key: "dashboard",
   },
 ];
 
