@@ -19,7 +19,7 @@ const routes: Array<IRoute> = [
     key: "login",
   },
   {
-    path: "/dashboard",
+    path: "/",
     element: DashBoard,
     authorizers: [],
     isProtectiveRoute: true,
