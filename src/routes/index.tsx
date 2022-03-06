@@ -1,31 +1,31 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import ProtectiveRoutes from "src/routes/ProtectiveRoutes";
-import routes, { IRoute } from "./routes";
+import routes, { IRoute } from "src/routes/routes";
 
 const HospitalManagement: React.FC = () => {
   return (
-    <Switch>
+    <Routes>
       {routes.map((route: IRoute) => {
+        const Element = route.element;
         return (
           <React.Fragment key={route.key}>
             {route.isProtectiveRoute ? (
-              <ProtectiveRoutes
-                key={route.key}
+              <Route
                 path={route.path}
-                element={route.element}
+                element={
+                  <ProtectiveRoutes>
+                    <Element />
+                  </ProtectiveRoutes>
+                }
               />
             ) : (
-              <Route
-                key={route.key}
-                path={route.path}
-                component={route.element}
-              />
+              <Route path={route.path} element={<Element />} />
             )}
           </React.Fragment>
         );
       })}
-    </Switch>
+    </Routes>
   );
 };
 
