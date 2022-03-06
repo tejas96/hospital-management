@@ -1,4 +1,4 @@
-import { Login, DashBoard } from "src/components";
+import { Login, DashBoard } from "src/pages";
 
 export interface IRoute {
   path: string;
