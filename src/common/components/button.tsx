@@ -1,4 +1,4 @@
-import { Button, IconButton } from "@mui/material";
+import { Button, IconButton } from "@material-ui/core";
 import { SvgIconComponent } from "@material-ui/icons";
 import * as React from "react";
 

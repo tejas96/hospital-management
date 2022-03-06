@@ -1,5 +1,5 @@
 import React from "react";
-import TextField from "@mui/material/TextField";
+import { TextField } from "@material-ui/core";
 
 type MyInput = React.ComponentProps<typeof TextField> & {};
 
