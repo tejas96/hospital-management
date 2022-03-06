@@ -10,7 +10,7 @@ const Text: React.FC<IProps> = ({
   ...props
 }) => {
   return (
-    <Typography align={align} variant={variant} component="span" {...props}>
+    <Typography align={align} variant={variant} {...props}>
       {children}
     </Typography>
   );

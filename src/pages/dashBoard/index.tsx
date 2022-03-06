@@ -1,11 +1,13 @@
+import { Box } from "@material-ui/core";
 import React from "react";
-import { HeaderAndDrawer } from "src/common/components";
+import { HeaderAndDrawer, Footer } from "src/common/components";
 
 const Dashboard = () => {
   return (
-    <div>
+    <Box>
       <HeaderAndDrawer />
-    </div>
+      <Footer />
+    </Box>
   );
 };
 
