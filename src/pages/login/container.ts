@@ -1,4 +1,6 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useSession } from "src/hooks";
 
 type LoginInputState = {
@@ -8,7 +10,7 @@ type LoginInputState = {
 
 const useLoginContainer = () => {
   const session = useSession();
-
+  const navigate = useNavigate();
   const [loginState, setLoginState] = useState<LoginInputState>({
     hospitalId: "",
     password: "",
@@ -22,7 +24,13 @@ const useLoginContainer = () => {
   const handleSubmit = () => {
     session
       .login(loginState.hospitalId, loginState.password)
-      .then((user) => {});
+      .then((user) => {
+        toast.success("Login Successful");
+        navigate("/");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
   };
   return {
     loginState,

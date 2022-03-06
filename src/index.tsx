@@ -5,19 +5,21 @@ import "./config/firebase";
 import HospitalManagement from "./routes/index";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
-import { AuthProvider } from "src/providers";
+import { AuthProvider, UtilityProvider } from "src/providers";
 import { ThemeProvider as MUIThemeProvider } from "@material-ui/styles";
 import MuiTheme from "src/config/MUITheme";
 ReactDOM.render(
   <MUIThemeProvider theme={MuiTheme}>
     <ThemeProvider theme={{}}>
-      <AuthProvider>
-        <Router>
-          <React.StrictMode>
-            <HospitalManagement />
-          </React.StrictMode>
-        </Router>
-      </AuthProvider>
+      <Router>
+        <UtilityProvider>
+          <AuthProvider>
+            <React.StrictMode>
+              <HospitalManagement />
+            </React.StrictMode>
+          </AuthProvider>
+        </UtilityProvider>
+      </Router>
     </ThemeProvider>
   </MUIThemeProvider>,
   document.getElementById("root")

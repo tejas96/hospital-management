@@ -2,6 +2,7 @@ import { AppBar, Box, IconButton, Toolbar } from "@material-ui/core";
 import { Menu, ExitToApp } from "@material-ui/icons";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useSession } from "src/hooks";
 import { Text } from ".";
 interface IProps {
   onHamburgIconClick?: () => void;
@@ -9,7 +10,7 @@ interface IProps {
 
 const Header: React.FC<IProps> = ({ onHamburgIconClick }) => {
   const navigation = useNavigate();
-
+  const session = useSession();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -30,7 +31,7 @@ const Header: React.FC<IProps> = ({ onHamburgIconClick }) => {
             >
               Contact Us
             </Text>
-            <IconButton>
+            <IconButton onClick={() => session.logout()}>
               <ExitToApp className="text-primary font-bold" />
             </IconButton>
           </Box>
