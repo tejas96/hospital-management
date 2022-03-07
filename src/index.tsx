@@ -8,18 +8,22 @@ import { ThemeProvider } from "styled-components";
 import { AuthProvider, UtilityProvider } from "src/providers";
 import { ThemeProvider as MUIThemeProvider } from "@material-ui/styles";
 import MuiTheme from "src/config/MUITheme";
+import { RecoilRoot } from "recoil";
+
 ReactDOM.render(
   <MUIThemeProvider theme={MuiTheme}>
     <ThemeProvider theme={{}}>
-      <Router>
-        <UtilityProvider>
-          <AuthProvider>
-            <React.StrictMode>
-              <HospitalManagement />
-            </React.StrictMode>
-          </AuthProvider>
-        </UtilityProvider>
-      </Router>
+      <RecoilRoot>
+        <Router>
+          <UtilityProvider>
+            <AuthProvider>
+              <React.StrictMode>
+                <HospitalManagement />
+              </React.StrictMode>
+            </AuthProvider>
+          </UtilityProvider>
+        </Router>
+      </RecoilRoot>
     </ThemeProvider>
   </MUIThemeProvider>,
   document.getElementById("root")
