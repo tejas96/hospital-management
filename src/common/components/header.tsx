@@ -18,6 +18,9 @@ const Header: React.FC<IProps> = ({ onHamburgIconClick }) => {
           <IconButton color="secondary" edge="start">
             <Menu onClick={onHamburgIconClick} />
           </IconButton>
+          <Text variant="h6" color="textPrimary">
+            ASPR Health
+          </Text>
           <Box className="justify-end flex items-center" sx={{ flexGrow: 1 }}>
             <Text
               onClick={() => navigation("/about")}
