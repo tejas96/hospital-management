@@ -1,6 +1,6 @@
 export enum UserRoles {
-  ADMIN,
-  FINANCE,
+  ADMIN = "Admin",
+  FINANCE = "Finance",
 }
 
 export enum ApiMethods {
@@ -16,4 +16,18 @@ export type Doctor = {
   honorific: string;
   expertise: Array<string>;
   profilePic: string;
+};
+
+export type Inventory = {
+  id: string;
+  name: string;
+  price: number;
+  qty: number;
+  description: string;
+};
+
+export type LoggedInUser = {
+  role: UserRoles;
+  orgKey: string;
+  approvals?: Array<string>;
 };

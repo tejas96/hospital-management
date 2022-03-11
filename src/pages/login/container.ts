@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useSession } from "src/hooks";
+import { useLoggedInUser, useSession } from "src/hooks";
 
 type LoginInputState = {
   hospitalId: string;
@@ -10,6 +10,7 @@ type LoginInputState = {
 
 const useLoginContainer = () => {
   const session = useSession();
+  const _ = useLoggedInUser();
   const navigate = useNavigate();
   const [loginState, setLoginState] = useState<LoginInputState>({
     hospitalId: "",
