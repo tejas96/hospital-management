@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader } from "src/common/components";
-import { useSession } from "src/hooks";
+import { useLoggedInUser, useSession } from "src/hooks";
 import { UserRoles } from "src/model";
 
 interface IProps {
@@ -15,19 +15,20 @@ const ProtectiveRoutes: React.FC<IProps> = ({
 }) => {
   const { user: authUser, sessionUserLoading: authLoading } = useSession();
   const navigate = useNavigate();
+  const loggedInUser = useLoggedInUser();
 
-  if (authUser) {
-    if (authorization.includes(UserRoles.ADMIN)) {
-    } else {
-      // take action if user is not authorized
-    }
-  }
   useEffect(() => {
     if (!authLoading && !authUser) {
       navigate("/login");
     }
+    if (loggedInUser.user) {
+      if (authorization.includes(loggedInUser.user.role)) {
+      } else {
+        alert("not authorized");
+      }
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [authUser, authLoading]);
+  }, [authUser, authLoading, loggedInUser]);
   return <>{authLoading ? <Loader message="Loading..." /> : children}</>;
 };
 

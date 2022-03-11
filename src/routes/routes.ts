@@ -6,6 +6,7 @@ import {
   About,
   Billing,
   Inventory,
+  FinanceScreen,
 } from "src/pages";
 export interface IRoute {
   path: string;
@@ -59,6 +60,13 @@ const routes: Array<IRoute> = [
     authorizers: [UserRoles.ADMIN],
     isProtectiveRoute: true,
     key: "inventory",
+  },
+  {
+    path: "/RfpApproval",
+    element: FinanceScreen,
+    authorizers: [UserRoles.FINANCE],
+    isProtectiveRoute: true,
+    key: "finance",
   },
 ];
 
