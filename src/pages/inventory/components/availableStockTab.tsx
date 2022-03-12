@@ -54,7 +54,6 @@ const AvailableStock: React.FC<IProps> = () => {
               <TableCell>#</TableCell>
               <TableCell align="right">Name</TableCell>
               <TableCell align="right">Quantity</TableCell>
-              <TableCell align="right">Price</TableCell>
               <TableCell align="right">Description</TableCell>
             </TableRow>
           </TableHead>
@@ -73,7 +72,6 @@ const AvailableStock: React.FC<IProps> = () => {
                   </TableCell>
                   <TableCell align="right">{row.name}</TableCell>
                   <TableCell align="right">{row.qty}</TableCell>
-                  <TableCell align="right">{row.price}</TableCell>
                   <TableCell align="right">{row.description}</TableCell>
                 </TableRow>
               ))

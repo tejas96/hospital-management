@@ -62,7 +62,7 @@ const routes: Array<IRoute> = [
     key: "inventory",
   },
   {
-    path: "/RfpApproval",
+    path: "/rfpApproval",
     element: FinanceScreen,
     authorizers: [UserRoles.FINANCE],
     isProtectiveRoute: true,
