@@ -14,7 +14,7 @@ const HospitalManagement: React.FC = () => {
               <Route
                 path={route.path}
                 element={
-                  <ProtectiveRoutes>
+                  <ProtectiveRoutes authorization={route.authorizers}>
                     <Element />
                   </ProtectiveRoutes>
                 }

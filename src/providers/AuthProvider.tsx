@@ -8,6 +8,7 @@ import {
   onAuthStateChanged,
   User,
 } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 interface AuthContextData {
   login(
@@ -33,6 +34,7 @@ interface IProps {
 const AuthProvider: React.FC<IProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [sessionUserLoading, setSessionUserLoading] = useState<boolean>(true);
+  const navigate = useNavigate();
   /**
    * @description call whenever user login state change
    */
@@ -55,14 +57,7 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
     password: string
   ): Promise<UserCredential | void> => {
     const auth = getAuth();
-    const loginUser: UserCredential | void = await signInWithEmailAndPassword(
-      auth,
-      hospitalEmail,
-      password
-    ).catch((err) => {
-      return err;
-    });
-    return loginUser;
+    return await signInWithEmailAndPassword(auth, hospitalEmail, password);
   };
 
   /**
@@ -70,11 +65,15 @@ const AuthProvider: React.FC<IProps> = ({ children }) => {
    */
   const logout = async () => {
     const auth = getAuth();
-    toaster.promise(auth.signOut(), {
-      loading: "logout...",
-      error: "Unable to logout",
-      success: "Logout successfully",
-    });
+    toaster
+      .promise(auth.signOut(), {
+        loading: "logout...",
+        error: "Unable to logout",
+        success: "Logout successfully",
+      })
+      .then(() => {
+        navigate("/login");
+      });
   };
 
   const context = {

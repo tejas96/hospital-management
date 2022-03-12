@@ -21,6 +21,7 @@ const Input: React.FC<MyInput> = ({
       onChange={onChange}
       onBlur={onBlur}
       error={error}
+      variant={variant}
       {...props}
     />
   );

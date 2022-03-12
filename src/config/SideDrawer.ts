@@ -1,16 +1,20 @@
-import { BILLING, DASHBOARD } from "src/routes/routersName";
-import { Dashboard, MonetizationOn } from "@material-ui/icons";
+import { Dashboard, MonetizationOn, Store } from "@material-ui/icons";
 
 const SideDrawerMenus = [
   {
     label: "Dashboard",
     icon: Dashboard,
-    redirect: DASHBOARD,
+    redirect: "/",
   },
   {
     label: "Billing",
     icon: MonetizationOn,
-    redirect: BILLING,
+    redirect: "/billing",
+  },
+  {
+    label: "Inventory",
+    icon: Store,
+    redirect: "/inventory",
   },
 ];
 

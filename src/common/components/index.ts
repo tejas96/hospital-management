@@ -5,4 +5,20 @@ import Loader from "src/common/components/loader";
 import Header from "src/common/components/header";
 import SideDrawer from "src/common/components/drawer";
 import HeaderAndDrawer from "src/common/components/headerAndDrawer";
-export { HeaderAndDrawer, Header, Input, Text, Button, Loader, SideDrawer };
+import Footer from "src/common/components/footer";
+import Map from "src/common/components/map";
+import Modal from "src/common/components/modal";
+import DropDown from "src/common/components/dropDown";
+export {
+  HeaderAndDrawer,
+  Header,
+  Input,
+  Text,
+  Button,
+  Loader,
+  SideDrawer,
+  Footer,
+  Map,
+  Modal,
+  DropDown,
+};
