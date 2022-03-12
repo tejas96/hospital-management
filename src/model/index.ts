@@ -31,3 +31,9 @@ export type LoggedInUser = {
   orgKey: string;
   approvals?: Array<string>;
 };
+
+export interface DropDownOption {
+  label: string;
+  value: string;
+  icon?: any;
+}
