@@ -48,7 +48,7 @@ const FinanceScreen: React.FC<{}> = () => {
                         />
                         <Button
                           disabled={updateRfpState.loading}
-                          onClick={() => handleAction(row.id, "Reject")}
+                          onClick={() => handleAction(row.id, "Rejected")}
                           label="Reject"
                           style={{ background: "tomato" }}
                         />

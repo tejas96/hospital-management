@@ -46,22 +46,22 @@ const AvailableStock: React.FC<IProps> = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Box>
-      <TableContainer component={Paper}>
-        <Table aria-label="customized table">
-          <TableHead>
-            <TableRow>
-              <TableCell>#</TableCell>
-              <TableCell align="right">Name</TableCell>
-              <TableCell align="right">Quantity</TableCell>
-              <TableCell align="right">Description</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {fetchInventoryStatus.loading ? (
-              <CircularProgress className="text-center" />
-            ) : (
-              fetchInventoryStatus.data?.map?.((row) => (
+    <Box className="w-full flex justify-center">
+      {fetchInventoryStatus.loading ? (
+        <CircularProgress className="text-center" />
+      ) : (
+        <TableContainer component={Paper}>
+          <Table aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <TableCell>#</TableCell>
+                <TableCell align="right">Name</TableCell>
+                <TableCell align="right">Quantity</TableCell>
+                <TableCell align="right">Description</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {fetchInventoryStatus.data?.map?.((row) => (
                 <TableRow key={row.name}>
                   <TableCell align="right">
                     <Avatar
@@ -74,11 +74,11 @@ const AvailableStock: React.FC<IProps> = () => {
                   <TableCell align="right">{row.qty}</TableCell>
                   <TableCell align="right">{row.description}</TableCell>
                 </TableRow>
-              ))
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
     </Box>
   );
 };

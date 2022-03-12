@@ -12,7 +12,7 @@ const useFinanceContainer = () => {
     fetchPendingApprovals("/rfp/Pending", ApiMethods.GET);
   }, []);
   const handleAction = useCallback(
-    (rfpId: string, action: "Approved" | "Reject") => {
+    (rfpId: string, action: "Approved" | "Rejected") => {
       updateRfp(`/rfp/action/${rfpId}/${action}`, ApiMethods.POST).then(() => {
         window.location.reload();
       });
