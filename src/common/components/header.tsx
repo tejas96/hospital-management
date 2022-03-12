@@ -6,18 +6,27 @@ import { useSession } from "src/hooks";
 import { Text } from ".";
 interface IProps {
   onHamburgIconClick?: () => void;
+  showHamburgerIcon?: boolean;
 }
 
-const Header: React.FC<IProps> = ({ onHamburgIconClick }) => {
+const Header: React.FC<IProps> = ({
+  onHamburgIconClick,
+  showHamburgerIcon = true,
+}) => {
   const navigation = useNavigate();
   const session = useSession();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar className="bg-background">
-          <IconButton color="secondary" edge="start">
-            <Menu onClick={onHamburgIconClick} />
-          </IconButton>
+          {showHamburgerIcon && (
+            <IconButton color="secondary" edge="start">
+              <Menu onClick={onHamburgIconClick} />
+            </IconButton>
+          )}
+          <Text variant="h6" color="textPrimary">
+            ASPR Health
+          </Text>
           <Box className="justify-end flex items-center" sx={{ flexGrow: 1 }}>
             <Text
               onClick={() => navigation("/about")}

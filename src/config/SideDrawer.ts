@@ -1,4 +1,4 @@
-import { Dashboard, MonetizationOn } from "@material-ui/icons";
+import { Dashboard, MonetizationOn, Store } from "@material-ui/icons";
 
 const SideDrawerMenus = [
   {
@@ -10,6 +10,11 @@ const SideDrawerMenus = [
     label: "Billing",
     icon: MonetizationOn,
     redirect: "/billing",
+  },
+  {
+    label: "Inventory",
+    icon: Store,
+    redirect: "/inventory",
   },
 ];
 

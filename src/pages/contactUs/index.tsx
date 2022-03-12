@@ -1,7 +1,7 @@
 import { Box, Divider, IconButton } from "@material-ui/core";
+import { Facebook, Instagram, Twitter } from "@material-ui/icons";
 import React from "react";
 import { Footer, HeaderAndDrawer, Text } from "src/common/components";
-import { Facebook, Instagram, Twitter } from "@material-ui/icons";
 interface IProps {}
 
 const ContactUs: React.FC<IProps> = () => {

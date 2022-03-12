@@ -1,6 +1,6 @@
 import { Box } from "@material-ui/core";
 import React from "react";
-import { HeaderAndDrawer, Footer } from "src/common/components";
+import { Footer, HeaderAndDrawer } from "src/common/components";
 
 const Dashboard = () => {
   return (

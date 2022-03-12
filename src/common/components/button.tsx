@@ -1,33 +1,24 @@
-import { Button, IconButton } from "@material-ui/core";
-import { SvgIconComponent } from "@material-ui/icons";
+import { alpha, Button } from "@material-ui/core";
+import { styled } from "@material-ui/styles";
 import * as React from "react";
 
-type IProps = React.ComponentProps<typeof Button> &
-  React.ComponentProps<typeof IconButton> & {
-    label: string;
-    iconButton?: boolean;
-    iconButtonIcon?: SvgIconComponent;
-  };
+const MButton = styled(Button)(({ theme }) => ({
+  backgroundColor: theme.palette.primary.main,
+  color: "white",
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.primary.dark, 0.8),
+  },
+}));
+type IProps = React.ComponentProps<typeof Button> & {
+  label: string;
+};
 
-const BasicButtons: React.FC<IProps> = ({
-  label = "",
-  iconButton = false,
-  iconButtonIcon,
-  ...props
-}) => {
-  if (iconButton) {
-    return (
-      <IconButton aria-label={label} {...props}>
-        {iconButtonIcon}
-      </IconButton>
-    );
-  } else {
-    return (
-      <Button variant="contained" {...props}>
-        {label}
-      </Button>
-    );
-  }
+const BasicButtons: React.FC<IProps> = ({ label = "", ...props }) => {
+  return (
+    <MButton variant="contained" {...props}>
+      {label}
+    </MButton>
+  );
 };
 
 export default BasicButtons;

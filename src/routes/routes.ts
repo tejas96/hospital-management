@@ -1,9 +1,18 @@
-import { Login, DashBoard, ContactUs, About, Billing } from "src/pages";
+import { UserRoles } from "src/model";
+import {
+  Login,
+  DashBoard,
+  ContactUs,
+  About,
+  Billing,
+  Inventory,
+  FinanceScreen,
+} from "src/pages";
 export interface IRoute {
   path: string;
   element: any;
   exact?: boolean;
-  authorizers: string[];
+  authorizers: Array<UserRoles>;
   redirect?: string;
   isProtectiveRoute: boolean;
   key: string;
@@ -13,14 +22,14 @@ const routes: Array<IRoute> = [
   {
     path: "/login",
     element: Login,
-    authorizers: [],
+    authorizers: [UserRoles.ADMIN],
     isProtectiveRoute: false,
     key: "login",
   },
   {
     path: "/",
     element: DashBoard,
-    authorizers: [],
+    authorizers: [UserRoles.ADMIN],
     isProtectiveRoute: true,
     key: "dashboard",
   },
@@ -41,9 +50,23 @@ const routes: Array<IRoute> = [
   {
     path: "/billing",
     element: Billing,
-    authorizers: [],
+    authorizers: [UserRoles.ADMIN],
     isProtectiveRoute: true,
     key: "billing",
+  },
+  {
+    path: "/inventory",
+    element: Inventory,
+    authorizers: [UserRoles.ADMIN],
+    isProtectiveRoute: true,
+    key: "inventory",
+  },
+  {
+    path: "/rfpApproval",
+    element: FinanceScreen,
+    authorizers: [UserRoles.FINANCE],
+    isProtectiveRoute: true,
+    key: "finance",
   },
 ];
 
