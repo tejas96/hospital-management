@@ -40,6 +40,7 @@ const useApi = <T>(): [fetchFunction, UseApiState<T>] => {
         .catch((err) => {
           setLoading(false);
           setError(err);
+          throw err;
           return err;
         });
     } else if (method === ApiMethods.POST) {
@@ -55,6 +56,7 @@ const useApi = <T>(): [fetchFunction, UseApiState<T>] => {
         .catch((err) => {
           setLoading(false);
           setError(err);
+          throw err;
           return err;
         });
     } else if (method === ApiMethods.PUT) {
@@ -70,6 +72,7 @@ const useApi = <T>(): [fetchFunction, UseApiState<T>] => {
         .catch((err) => {
           setLoading(false);
           setError(err);
+          throw err;
           return err;
         });
     } else if (method === ApiMethods.DELETE) {
@@ -85,6 +88,7 @@ const useApi = <T>(): [fetchFunction, UseApiState<T>] => {
         .catch((err) => {
           setLoading(false);
           setError(err);
+          throw err;
           return err;
         });
     }
