@@ -1,69 +1,116 @@
 import { Box } from "@material-ui/core";
-import React from "react";
-import { Button, Input, Text } from "src/common/components";
-import { Patient } from "src/model";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { DropDown, Text, DateTimePicker, Button } from "src/common/components";
+import { useApi } from "src/hooks";
+import { ApiMethods, Booking, Patient } from "src/model";
+import { disease } from "src/pages/ipd-opd/const";
+
 interface IProps {
-  show: boolean;
-  data: Patient | null;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  phoneNumber: string;
-  isPatientRegistered: boolean;
+  patientData: Patient | null;
 }
-const BookAppointment: React.FC<IProps> = ({
-  data,
-  onChange,
-  phoneNumber,
-  show = false,
-  isPatientRegistered = false,
-}) => {
+const BookAppointment: React.FC<IProps> = ({ patientData }) => {
+  const [dateAndTime, setDateAndTime] = useState<Date>(new Date());
+  const [wordType, setWordType] = useState<string>("");
+  const [diseaseSelect, setDiseaseSelect] = useState<string>("");
+  const [appointmentBook, setAppointmentBook] = useState<Booking>({
+    patientId: patientData?.id || "",
+    doctorId: "",
+    dateAndTime: "",
+    paid: false,
+    amount: 0,
+    wardType: "IPD",
+    treatmentType: "",
+    patientName: `${patientData?.firstName} ${patientData?.lastName}`,
+  });
+  const [bookAppointment] = useApi();
+
+  console.log(appointmentBook);
+  const handleWardTypeSelect = (
+    event: React.ChangeEvent<{
+      name?: string | undefined;
+      value: unknown;
+    }>
+  ) => {
+    const value = event.target.value as "IPD" | "OPD";
+    setWordType(value);
+    setAppointmentBook({ ...appointmentBook, wardType: value });
+  };
+
+  const handleDiseaseSelect = (
+    event: React.ChangeEvent<{
+      name?: string | undefined;
+      value: unknown;
+    }>
+  ) => {
+    const value = event.target.value as string;
+    const findDisease = disease.find((d: any) => d.name === value);
+    setDiseaseSelect(value);
+    setAppointmentBook({
+      ...appointmentBook,
+      treatmentType: value,
+      doctorId: findDisease?.doctorAssociated.id || "",
+    });
+  };
+  const handleAppointmentBook = () => {
+    toast.promise(
+      bookAppointment(
+        "/ipd-opd/patient/book-appointment",
+        ApiMethods.POST,
+        appointmentBook
+      ),
+      {
+        loading: "Booking...",
+        success: "Done",
+        error: "Error",
+      }
+    );
+  };
   return (
-    <>
-      {" "}
-      {show && (
-        <Box className="flex flex-col justify-center items-center">
-          <Text variant="h5">Book Appointment</Text>
-          <Box className="my-2 w-full">
-            <Input
-              className="w-[300px]"
-              value={data?.firstName}
-              onChange={onChange}
-              label="First name"
-              name="firstName"
-            />
-          </Box>
-          <Box className="my-2 w-full">
-            <Input
-              className="w-[300px]"
-              value={data?.lastName}
-              onChange={onChange}
-              label="Last name"
-              name="lastName"
-            />
-          </Box>
-          <Box className="my-2 w-full">
-            <Input
-              className="w-[300px]"
-              value={data?.age}
-              onChange={onChange}
-              label="Age"
-              name="age"
-              type={"number"}
-            />
-          </Box>
-          <Box className="my-2 w-full">
-            <Input
-              className="w-[300px]"
-              value={data?.phoneNumber || phoneNumber}
-              onChange={onChange}
-              type="number"
-              label="Phone number"
-              name="phoneNumber"
-            />
-          </Box>
-          <Button label={isPatientRegistered ? "Book" : "Register & Book"} />
-        </Box>
-      )}
-    </>
+    <Box className="flex flex-col justify-center items-center w-ful">
+      <Text className="my-5">Hello, {patientData?.firstName}</Text>
+      <Box className="my-3">
+        <DropDown
+          className="w-[300px]"
+          selectedValue={diseaseSelect}
+          variant="outlined"
+          onChange={handleDiseaseSelect}
+          label="Treatment Type"
+          options={disease.map((item) => ({
+            label: item.name,
+            value: item.name,
+          }))}
+        />
+      </Box>
+      <Box className="my-3">
+        <DropDown
+          className="w-[300px]"
+          selectedValue={wordType}
+          variant="outlined"
+          label="Ward type"
+          onChange={handleWardTypeSelect}
+          options={[
+            { label: "IPD", value: "IPD" },
+            { label: "OPD", value: "OPD" },
+          ]}
+        />
+      </Box>
+      <Box className="my-3">
+        <DateTimePicker
+          minDate={new Date()}
+          onChange={(date) => {
+            setDateAndTime(date);
+            setAppointmentBook({
+              ...appointmentBook,
+              dateAndTime: date.getTime().toString(),
+            });
+          }}
+          value={dateAndTime}
+          className="w-[300px]"
+        />
+      </Box>
+      <Button onClick={handleAppointmentBook} label={"Book"} />
+    </Box>
   );
 };
 

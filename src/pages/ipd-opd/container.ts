@@ -2,12 +2,11 @@ import React, { useCallback, useState } from "react";
 import { useApi } from "src/hooks";
 import { ApiMethods, Patient } from "src/model";
 import produce from "immer";
+import toast from "react-hot-toast";
 
 interface AppointmentBookingState {
-  isPatientRegistered: boolean;
   patient: Patient | null;
   error: any;
-  show: boolean;
 }
 const useIpdOpdContainer = () => {
   const [phoneNumber, setPhoneNumber] = useState<{
@@ -17,9 +16,14 @@ const useIpdOpdContainer = () => {
     phoneNumber: "",
     error: "",
   });
-  const [openAppointmentBooking, setOpenAppointmentBooking] =
+
+  const [screen, setScreen] = useState({
+    patientExistScreen: true,
+    patientRegisterScreen: false,
+    patientAppointmentScreen: false,
+  });
+  const [patientRegistrationData, setPatientRegistrationData] =
     useState<AppointmentBookingState>({
-      isPatientRegistered: false,
       patient: {
         firstName: "",
         lastName: "",
@@ -27,9 +31,10 @@ const useIpdOpdContainer = () => {
         age: 0,
       },
       error: null,
-      show: false,
     });
-  const [fetchPatientByPhoneNumber,fetchPatientByPhoneNumberState ] = useApi<Patient>();
+  const [fetchPatientByPhoneNumber, fetchPatientByPhoneNumberState] =
+    useApi<Patient>();
+  const [registerPatient] = useApi();
 
   const handlePhoneNumberSubmit = useCallback(() => {
     if (
@@ -46,56 +51,85 @@ const useIpdOpdContainer = () => {
         ApiMethods.GET
       )
         .then((r) => {
-          setOpenAppointmentBooking({
-            isPatientRegistered: true,
+          setPatientRegistrationData({
             patient: r.data,
             error: null,
-            show: true,
+          });
+
+          setScreen({
+            patientExistScreen: false,
+            patientRegisterScreen: false,
+            patientAppointmentScreen: true,
           });
         })
         .catch((err) => {
-          setOpenAppointmentBooking({
-            isPatientRegistered: false,
-            patient: null,
+          setPatientRegistrationData({
+            patient: {
+              firstName: "",
+              lastName: "",
+              phoneNumber: "",
+              age: 0,
+            },
             error: err,
-            show: true,
+          });
+
+          setScreen({
+            patientExistScreen: false,
+            patientRegisterScreen: true,
+            patientAppointmentScreen: false,
           });
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phoneNumber]);
-  const handleBookAppointmentChange = useCallback(
+
+  const handlePatientRegisteredChanges = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const { name, value } = e.target;
-      console.log(name, value);
-      setOpenAppointmentBooking(
+      setPatientRegistrationData(
         produce((draft: AppointmentBookingState) => {
-          if (draft.patient) draft.patient[name] = value;
+          draft.patient[name] = value;
         })
       );
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
+
   const handleBackButton = useCallback(() => {
-    setOpenAppointmentBooking({
-      isPatientRegistered: false,
-      patient: null,
-      error: null,
-      show: false,
-    });
+    setScreen((prev) => ({
+      patientExistScreen: true,
+      patientRegisterScreen: false,
+      patientAppointmentScreen: false,
+    }));
   }, []);
 
-  const handleBookAppointmentSubmit = useCallback(() => {}, []);
+  const handlePatientRegisterSubmit = useCallback(() => {
+    toast.promise(
+      registerPatient("/ipd-opd/patient", ApiMethods.POST, {
+        ...patientRegistrationData.patient,
+
+        phoneNumber: phoneNumber.phoneNumber,
+      }),
+      {
+        loading: "Registering Patient",
+        success: "Done",
+        error: "Error!!!",
+      }
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [patientRegistrationData, phoneNumber]);
+
   return {
     phoneNumber,
     setPhoneNumber,
     handlePhoneNumberSubmit,
-    openAppointmentBooking,
-    handleBookAppointmentSubmit,
-    handleBookAppointmentChange,
+    handlePatientRegisterSubmit,
+    handlePatientRegisteredChanges,
     handleBackButton,
-    fetchPatientByPhoneNumberState
+    fetchPatientByPhoneNumberState,
+    screen,
+    patientRegistrationData,
   };
 };
 
