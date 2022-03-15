@@ -21,6 +21,7 @@ import { disease } from "src/pages/ipd-opd/const";
 interface IProps {}
 const AppointmentBookedList: React.FC<IProps> = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
+  const [cancelModal, setCancelModal] = useState<boolean>(false);
   const [selectedAppointment, setSelectedAppointment] =
     useState<Booking | null>();
   const [fetchAllAppointment, fetchAllAppointmentState] =
@@ -30,21 +31,21 @@ const AppointmentBookedList: React.FC<IProps> = () => {
     fetchAllAppointment("/ipd-opd/patient/all/appointments", ApiMethods.GET);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const handleRescheduleAppointment = useCallback(() => {
+  const handleAppointmentUpdate = useCallback(() => {
+    console.log();
     toast
       .promise(
-        updateAppointment(
-          "/ipd-opd/patient/book-appointment",
-          ApiMethods.PUT,
-          selectedAppointment
-        ),
+        updateAppointment("/ipd-opd/patient/book-appointment", ApiMethods.PUT, {
+          ...selectedAppointment,
+          isCancelled: cancelModal,
+        }),
         { loading: "Updating appointment", success: "Done", error: "Error" }
       )
       .then(() => {
         window.location.reload();
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedAppointment]);
+  }, [selectedAppointment, cancelModal]);
   return (
     <>
       <Box className="flex justify-center items-center flex-col">
@@ -106,6 +107,10 @@ const AppointmentBookedList: React.FC<IProps> = () => {
                             label="Reschedule"
                           />
                           <Button
+                            onClick={() => {
+                              setSelectedAppointment(data);
+                              setCancelModal(true);
+                            }}
                             style={{ background: "tomato" }}
                             label="Cancel"
                           />
@@ -143,10 +148,27 @@ const AppointmentBookedList: React.FC<IProps> = () => {
             <Box className="my-5 w-full text-center">
               <Button
                 loading={updateAppointmentState.loading}
-                onClick={handleRescheduleAppointment}
+                onClick={handleAppointmentUpdate}
                 label={"Reschedule"}
               />
             </Box>
+          </Box>
+        </Box>
+      </Modal>
+      <Modal open={cancelModal} onClose={() => setCancelModal(false)}>
+        <Box className="bg-white w-[300px] h-[150px] p-5 flex flex-col justify-center items-center">
+          <Text variant="h5">Sure you want to cancel?</Text>
+          <Box className="w-full flex justify-between items-center my-5">
+            <Button
+              onClick={() => setCancelModal(false)}
+              label={"No"}
+              color="primary"
+            />
+            <Button
+              onClick={handleAppointmentUpdate}
+              label={"Cancel"}
+              style={{ background: "#112435" }}
+            />
           </Box>
         </Box>
       </Modal>
