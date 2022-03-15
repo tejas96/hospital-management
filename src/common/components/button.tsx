@@ -21,7 +21,13 @@ const BasicButtons: React.FC<IProps> = ({
 }) => {
   return (
     <MButton
-      {...(loading ? { startIcon: <CircularProgress size={15} /> } : {})}
+      {...(loading
+        ? {
+            startIcon: (
+              <CircularProgress style={{ color: "white" }} size={15} />
+            ),
+          }
+        : {})}
       variant="contained"
       {...props}
     >
