@@ -7,6 +7,7 @@ import {
   Billing,
   Inventory,
   FinanceScreen,
+  IPD_OPD,
 } from "src/pages";
 export interface IRoute {
   path: string;
@@ -67,6 +68,13 @@ const routes: Array<IRoute> = [
     authorizers: [UserRoles.FINANCE],
     isProtectiveRoute: true,
     key: "finance",
+  },
+  {
+    path: "/ipd-opd",
+    element: IPD_OPD,
+    authorizers: [UserRoles.ADMIN],
+    isProtectiveRoute: true,
+    key: "ipd-opd",
   },
 ];
 
