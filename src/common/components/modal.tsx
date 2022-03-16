@@ -14,18 +14,10 @@ const Modal: React.FC<IProps> = ({
   outSideClickCloseModal = true,
   ...props
 }) => {
-  const [openModal, setOpenModal] = useState<boolean>(open);
-
-  useEffect(() => {
-    setOpenModal(open);
-  }, [open]);
   return (
     <MModal
       className={`flex justify-center items-center ${className}`}
-      open={openModal}
-      onBackdropClick={() => {
-        if (outSideClickCloseModal) setOpenModal(false);
-      }}
+      open={open}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
       {...props}

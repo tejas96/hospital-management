@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from "react";
-import produce from "immer";
+import toast from "react-hot-toast";
 import { useApi } from "src/hooks";
 import { ApiMethods } from "src/model";
-import toast from "react-hot-toast";
 interface RfpFormState {
   productName: string;
   quantity: number;
@@ -25,11 +24,10 @@ const useInventoryContainer = () => {
   ): void => {
     const { name, value } = e.target;
     if (name) {
-      setRfpFormState(
-        produce((draft: RfpFormState) => {
-          draft[name] = value;
-        })
-      );
+      setRfpFormState({
+        ...rfpFormState,
+        [name]: value,
+      });
     }
   };
 
@@ -41,6 +39,7 @@ const useInventoryContainer = () => {
       .catch(() => {
         toast.error("Error creating RFP");
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rfpFormState]);
 
   return {
