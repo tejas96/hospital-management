@@ -10,6 +10,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import { CheckCircle } from "@material-ui/icons";
 import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -31,6 +32,22 @@ const AppointmentBookedList: React.FC<IProps> = () => {
     fetchAllAppointment("/ipd-opd/patient/all/appointments", ApiMethods.GET);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const handleSort = useCallback(
+    (sortBy: string) => {
+      const sortedAppointments = [...fetchAllAppointmentState.data];
+      sortedAppointments.sort((a, b) => {
+        if (a[sortBy] < b[sortBy]) {
+          return -1;
+        }
+        if (a[sortBy] > b[sortBy]) {
+          return 1;
+        }
+        return 0;
+      });
+      return sortedAppointments;
+    },
+    [fetchAllAppointmentState]
+  );
   const handleAppointmentUpdate = useCallback(() => {
     console.log();
     toast
@@ -56,6 +73,7 @@ const AppointmentBookedList: React.FC<IProps> = () => {
             <Table aria-label="customized table">
               <TableHead>
                 <TableRow>
+                  <TableCell align="right"></TableCell>
                   <TableCell align="right">#</TableCell>
                   <TableCell align="right">Name</TableCell>
                   <TableCell align="right">Doctor</TableCell>
@@ -67,9 +85,14 @@ const AppointmentBookedList: React.FC<IProps> = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {fetchAllAppointmentState.data?.map(
+                {handleSort("dateAndTime")?.map(
                   (data: Booking, index: number) => (
                     <TableRow key={data.id}>
+                      <TableCell align="right">
+                        {moment(+data.dateAndTime) <= moment() && (
+                          <CheckCircle className="text-green-500" />
+                        )}
+                      </TableCell>
                       <TableCell align="right">{index + 1}</TableCell>
                       <TableCell align="right">{data.patientName}</TableCell>
                       <TableCell align="right">
@@ -81,7 +104,9 @@ const AppointmentBookedList: React.FC<IProps> = () => {
                       </TableCell>
                       <TableCell align="right">{data.treatmentType}</TableCell>
                       <TableCell align="right">
-                        {moment(+data.dateAndTime).format("DD MMM YYYY HH:mm")}
+                        {`${moment(+data.dateAndTime).format(
+                          "DD MMM YYYY HH:mm"
+                        )} (${moment(+data.dateAndTime).fromNow()})`}
                       </TableCell>
                       <TableCell align="right">
                         {data?.updatedAt
@@ -100,6 +125,7 @@ const AppointmentBookedList: React.FC<IProps> = () => {
                       <TableCell align="right">
                         <Box className="flex w-full gap-3 justify-end">
                           <Button
+                            disabled={moment(+data.dateAndTime) <= moment()}
                             onClick={() => {
                               setSelectedAppointment(data);
                               setOpenModal(true);
@@ -107,6 +133,7 @@ const AppointmentBookedList: React.FC<IProps> = () => {
                             label="Reschedule"
                           />
                           <Button
+                            disabled={moment(+data.dateAndTime) <= moment()}
                             onClick={() => {
                               setSelectedAppointment(data);
                               setCancelModal(true);
