@@ -15,9 +15,9 @@ import moment from "moment";
 import React, { useCallback, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { Button, DateTimePicker, Modal, Text } from "src/common/components";
+import { disease } from "src/common/const";
 import { useApi } from "src/hooks";
 import { ApiMethods, Booking } from "src/model";
-import { disease } from "src/pages/ipd-opd/const";
 
 interface IProps {}
 const AppointmentBookedList: React.FC<IProps> = () => {
@@ -34,17 +34,19 @@ const AppointmentBookedList: React.FC<IProps> = () => {
   }, []);
   const handleSort = useCallback(
     (sortBy: string) => {
-      const sortedAppointments = [...fetchAllAppointmentState.data];
-      sortedAppointments.sort((a, b) => {
-        if (a[sortBy] < b[sortBy]) {
-          return -1;
-        }
-        if (a[sortBy] > b[sortBy]) {
-          return 1;
-        }
-        return 0;
-      });
-      return sortedAppointments;
+      if (fetchAllAppointmentState.data) {
+        const sortedAppointments = [...fetchAllAppointmentState.data];
+        sortedAppointments.sort((a: any, b: any) => {
+          if (a[sortBy] < b[sortBy]) {
+            return -1;
+          }
+          if (a[sortBy] > b[sortBy]) {
+            return 1;
+          }
+          return 0;
+        });
+        return sortedAppointments;
+      }
     },
     [fetchAllAppointmentState]
   );
