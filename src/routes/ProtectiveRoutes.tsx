@@ -21,12 +21,11 @@ const ProtectiveRoutes: React.FC<IProps> = ({
     if (!authLoading && !authUser) {
       navigate("/login");
     }
-    if (loggedInUser.user) {
-      if (authorization.includes(loggedInUser.user.role)) {
-      } else {
-        alert("not authorized");
-      }
-    }
+    // if (loggedInUser.user) {
+    //   if (loggedInUser.user.role === UserRoles.FINANCE) {
+    //     navigate("/rfpApproval");
+    //   }
+    // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authUser, authLoading, loggedInUser]);
   return <>{authLoading ? <Loader message="Loading..." /> : children}</>;

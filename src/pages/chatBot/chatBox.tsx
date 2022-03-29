@@ -19,7 +19,7 @@ interface IWrapper {
 const Wrapper: React.FC<IWrapper> = ({ children, align }) => {
   return (
     <Box
-      className={`rounded my-2 flex p-1 w-[87%] shadow-md flex-col justify-center items-center ${
+      className={`rounded my-2 flex p-1 w-[87%] shadow-xl flex-col justify-center items-center ${
         align === "left" ? "float-left" : "float-right"
       }`}
     >
@@ -35,7 +35,7 @@ const Wrapper: React.FC<IWrapper> = ({ children, align }) => {
 const ChatBox: React.FC<{}> = () => {
   const { state, setState } = useChatBot();
   return (
-    <Box className="h-[500px] w-[300px] relative bg-white overflow-x-auto p-1">
+    <Box className="h-[500px] shadow-sm  w-[350px] relative bg-white overflow-x-auto p-2">
       <Wrapper align="left">
         <ChatStartMessage />
       </Wrapper>

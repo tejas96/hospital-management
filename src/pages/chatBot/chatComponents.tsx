@@ -120,9 +120,10 @@ export const BookAppointmentOption: React.FC<{}> = () => {
   });
   const [patient, setPatient] = useState<Patient | null>(null);
   const [showInputs, setShowInputs] = useState(false);
+  const [showBookSuccessMessage, setShowBookSuccessMessage] = useState(false);
   const [fetchPatientByPhoneNumber, fetchPatientByPhoneNumberState] =
     useApi<Patient>();
-
+  const [bookOnline, bookOnlineState] = useApi();
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
       setPatientDetails({
@@ -167,96 +168,125 @@ export const BookAppointmentOption: React.FC<{}> = () => {
     });
   };
 
+  const handleBookClick = useCallback(() => {
+    let payload = {};
+    if (patient) {
+      const { id, ...rest } = patient;
+      payload = { ...patientDetails, patientId: id, ...rest };
+    } else {
+      payload = { ...patientDetails };
+    }
+    bookOnline(`/hospital/book-request`, ApiMethods.POST, payload).then(() => {
+      setShowBookSuccessMessage(true);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [patientDetails, patient]);
   return (
-    <Box className="">
-      {!showInputs && (
-        <Box className="flex items-center justify-between">
-          <Input
-            placeholder="Enter mobile number"
-            value={patientDetails.phoneNumber}
-            onChange={handleChange}
-            type="number"
-            label="Mobile number"
-            name="phoneNumber"
-          />
-          {fetchPatientByPhoneNumberState.loading ? (
-            <CircularProgress />
-          ) : (
-            <IconButton onClick={checkPatientExistOrNot}>
-              <Send color="secondary" />
-            </IconButton>
+    <>
+      {!showBookSuccessMessage ? (
+        <Box className="">
+          {!showInputs && (
+            <Box className="flex items-center justify-between">
+              <Input
+                placeholder="Enter mobile number"
+                value={patientDetails.phoneNumber}
+                onChange={handleChange}
+                type="number"
+                label="Mobile number"
+                name="phoneNumber"
+              />
+              {fetchPatientByPhoneNumberState.loading ? (
+                <CircularProgress />
+              ) : (
+                <IconButton onClick={checkPatientExistOrNot}>
+                  <Send color="secondary" />
+                </IconButton>
+              )}
+            </Box>
+          )}
+          {showInputs && (
+            <Box className="flex items-center flex-col justify-between">
+              {!patient && (
+                <>
+                  <Box className="my-2 w-full">
+                    <Input
+                      value={patientDetails.firstName}
+                      onChange={handleChange}
+                      label="First name"
+                      name="firstName"
+                    />
+                  </Box>
+                  <Box className="my-2 w-full">
+                    <Input
+                      value={patientDetails.lastName}
+                      onChange={handleChange}
+                      label="Last name"
+                      name="lastName"
+                    />
+                  </Box>
+                  <Box className="my-2 w-full">
+                    <Input
+                      value={patientDetails.age}
+                      onChange={handleChange}
+                      label="Age"
+                      name="age"
+                      type={"number"}
+                    />
+                  </Box>
+                  <Box className="my-2 w-full">
+                    <Input
+                      value={patientDetails.phoneNumber}
+                      onChange={handleChange}
+                      type="number"
+                      label="Phone number"
+                      name="phoneNumber"
+                    />
+                  </Box>
+                </>
+              )}
+              {patient && (
+                <Text variant="caption">{`Hello, ${patient.firstName} please book your appointment`}</Text>
+              )}
+              <Box className="my-2 w-full">
+                <DropDown
+                  className="w-full"
+                  selectedValue={diseaseSelect}
+                  variant="outlined"
+                  onChange={handleDiseaseSelect}
+                  label="Treatment Type"
+                  options={disease.map((item) => ({
+                    label: item.name,
+                    value: item.name,
+                  }))}
+                />
+              </Box>
+              <Box>
+                <DateTimePicker
+                  minDate={new Date()}
+                  onChange={(date) =>
+                    setPatientDetails({ ...patientDetails, dateAndTime: date })
+                  }
+                  value={patientDetails.dateAndTime}
+                  className="w-full"
+                />
+              </Box>
+              <Button
+                loading={bookOnlineState.loading}
+                onClick={handleBookClick}
+                style={{ marginTop: "4px" }}
+                label="Book"
+              />
+            </Box>
           )}
         </Box>
-      )}
-      {showInputs && (
-        <Box className="flex items-center flex-col justify-between">
-          {!patient && (
-            <>
-              <Box className="my-2 w-full">
-                <Input
-                  value={patientDetails.firstName}
-                  onChange={handleChange}
-                  label="First name"
-                  name="firstName"
-                />
-              </Box>
-              <Box className="my-2 w-full">
-                <Input
-                  value={patientDetails.lastName}
-                  onChange={handleChange}
-                  label="Last name"
-                  name="lastName"
-                />
-              </Box>
-              <Box className="my-2 w-full">
-                <Input
-                  value={patientDetails.age}
-                  onChange={handleChange}
-                  label="Age"
-                  name="age"
-                  type={"number"}
-                />
-              </Box>
-              <Box className="my-2 w-full">
-                <Input
-                  value={patientDetails.phoneNumber}
-                  onChange={handleChange}
-                  type="number"
-                  label="Phone number"
-                  name="phoneNumber"
-                />
-              </Box>
-            </>
-          )}
-          {patient && (
-            <Text variant="caption">{`Hello, ${patient.firstName} please book your appointment`}</Text>
-          )}
-          <Box className="my-2 w-full">
-            <DropDown
-              className="w-full"
-              selectedValue={diseaseSelect}
-              variant="outlined"
-              onChange={handleDiseaseSelect}
-              label="Treatment Type"
-              options={disease.map((item) => ({
-                label: item.name,
-                value: item.name,
-              }))}
-            />
-          </Box>
-          <Box>
-            <DateTimePicker
-              minDate={new Date()}
-              onChange={(date) =>
-                setPatientDetails({ ...patientDetails, dateAndTime: date })
-              }
-              value={patientDetails.dateAndTime}
-              className="w-full"
-            />
-          </Box>
-          <Button style={{ marginTop: "4px" }} label="Book" />
+      ) : (
+        <Box>
+          <Text>
+            Your appointment has been sent, once our admin member accept your
+            request we will inform you through SMS
+          </Text>
         </Box>
       )}
-    </Box>
+    </>
   );
 };
