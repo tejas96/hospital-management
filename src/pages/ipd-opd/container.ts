@@ -108,7 +108,6 @@ const useIpdOpdContainer = () => {
     toast.promise(
       registerPatient("/ipd-opd/patient", ApiMethods.POST, {
         ...patientRegistrationData.patient,
-
         phoneNumber: phoneNumber.phoneNumber,
       }),
       {
