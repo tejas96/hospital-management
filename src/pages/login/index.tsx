@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Input, Text } from "src/common/components";
 import useLoginContainer from "src/pages/login/container";
 import { Container, InputContainer } from "src/pages/login/style";
-
+import ChatBot from "src/pages/chatBot";
 const Login: React.FC = () => {
   const { loginState, handleChange, handleSubmit } = useLoginContainer();
   return (
@@ -39,6 +39,7 @@ const Login: React.FC = () => {
           />
         </InputContainer>
       </form>
+      <ChatBot />
     </Container>
   );
 };

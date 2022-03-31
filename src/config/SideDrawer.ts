@@ -3,6 +3,7 @@ import {
   MonetizationOn,
   Store,
   LocalHospital,
+  AddToQueue,
 } from "@material-ui/icons";
 
 const SideDrawerMenus = [
@@ -25,6 +26,11 @@ const SideDrawerMenus = [
     label: "IPD/OPD",
     icon: LocalHospital,
     redirect: "/ipd-opd",
+  },
+  {
+    label: "Online Appointment",
+    icon: AddToQueue,
+    redirect: "/online-appointment",
   },
 ];
 

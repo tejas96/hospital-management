@@ -21,21 +21,21 @@ const FinanceScreen: React.FC<{}> = () => {
       <HeaderAndDrawer showHamburgerIcon={false} />
       <Box>
         <TableContainer component={Paper}>
-          <Table aria-label="customized table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="right">Name</TableCell>
-                <TableCell align="right">Requested quantity</TableCell>
-                <TableCell align="right">Unit price</TableCell>
-                <TableCell align="right"></TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {fetchPendingApprovalsState.loading ? (
-                <CircularProgress className="text-center" />
-              ) : (
-                fetchPendingApprovalsState.data?.map((row) => (
-                  <TableRow key={row.name}>
+          {fetchPendingApprovalsState.loading ? (
+            <CircularProgress className="text-center" />
+          ) : (
+            <Table aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="right">Name</TableCell>
+                  <TableCell align="right">Requested quantity</TableCell>
+                  <TableCell align="right">Unit price</TableCell>
+                  <TableCell align="right"></TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {fetchPendingApprovalsState.data?.map((row) => (
+                  <TableRow key={row.id}>
                     <TableCell align="right">{row.name}</TableCell>
                     <TableCell align="right">{row.qty}</TableCell>
                     <TableCell align="right">$.{row.price}</TableCell>
@@ -55,10 +55,10 @@ const FinanceScreen: React.FC<{}> = () => {
                       </Box>
                     </TableCell>
                   </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
+                ))}
+              </TableBody>
+            </Table>
+          )}
         </TableContainer>
       </Box>
     </>
