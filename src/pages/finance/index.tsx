@@ -10,7 +10,7 @@ import {
   TableRow,
 } from "@material-ui/core";
 import React from "react";
-import { Button, HeaderAndDrawer } from "src/common/components";
+import { Button, HeaderAndDrawer, Text } from "src/common/components";
 import useFinanceContainer from "src/pages/finance/container";
 
 const FinanceScreen: React.FC<{}> = () => {
@@ -20,6 +20,9 @@ const FinanceScreen: React.FC<{}> = () => {
     <>
       <HeaderAndDrawer showHamburgerIcon={false} />
       <Box>
+        <Text className="float-left p-4" variant="h4">
+          RFP Approval
+        </Text>
         <TableContainer component={Paper}>
           {fetchPendingApprovalsState.loading ? (
             <CircularProgress className="text-center" />
