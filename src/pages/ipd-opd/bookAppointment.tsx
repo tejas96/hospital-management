@@ -2,9 +2,9 @@ import { Box } from "@material-ui/core";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { DropDown, Text, DateTimePicker, Button } from "src/common/components";
+import { disease } from "src/common/const";
 import { useApi } from "src/hooks";
 import { ApiMethods, Booking, Patient } from "src/model";
-import { disease } from "src/pages/ipd-opd/const";
 
 interface IProps {
   patientData: Patient | null;
@@ -25,7 +25,6 @@ const BookAppointment: React.FC<IProps> = ({ patientData }) => {
   });
   const [bookAppointment] = useApi();
 
-  console.log(appointmentBook);
   const handleWardTypeSelect = (
     event: React.ChangeEvent<{
       name?: string | undefined;

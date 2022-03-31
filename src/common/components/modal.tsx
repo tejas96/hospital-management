@@ -1,5 +1,5 @@
 import { Modal as MModal } from "@material-ui/core";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 type IProps = React.ComponentProps<typeof MModal> & {
   children?: React.ReactNode;
