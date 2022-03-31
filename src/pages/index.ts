@@ -5,3 +5,5 @@ export { default as About } from "src/pages/about";
 export { default as Billing } from "src/pages/billing";
 export { default as Inventory } from "src/pages/inventory";
 export { default as FinanceScreen } from "src/pages/finance";
+export { default as IPD_OPD } from "src/pages/ipd-opd";
+export { default as OnlineAppointments } from "src/pages/onlineAppointments";

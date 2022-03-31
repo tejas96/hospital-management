@@ -1,8 +1,8 @@
-import { alpha, Button } from "@material-ui/core";
+import { alpha, Button, CircularProgress } from "@material-ui/core";
 import { styled } from "@material-ui/styles";
 import * as React from "react";
 
-const MButton = styled(Button)(({ theme }) => ({
+const MButton = styled(Button)(({ theme, color }) => ({
   backgroundColor: theme.palette.primary.main,
   color: "white",
   "&:hover": {
@@ -11,11 +11,26 @@ const MButton = styled(Button)(({ theme }) => ({
 }));
 type IProps = React.ComponentProps<typeof Button> & {
   label: string;
+  loading?: boolean;
 };
 
-const BasicButtons: React.FC<IProps> = ({ label = "", ...props }) => {
+const BasicButtons: React.FC<IProps> = ({
+  label = "",
+  loading = false,
+  ...props
+}) => {
   return (
-    <MButton variant="contained" {...props}>
+    <MButton
+      {...(loading
+        ? {
+            startIcon: (
+              <CircularProgress style={{ color: "white" }} size={15} />
+            ),
+          }
+        : {})}
+      variant="contained"
+      {...props}
+    >
       {label}
     </MButton>
   );

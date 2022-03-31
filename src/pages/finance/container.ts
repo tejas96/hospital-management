@@ -3,9 +3,8 @@ import { useApi } from "src/hooks";
 import { ApiMethods } from "src/model";
 
 const useFinanceContainer = () => {
-  const [fetchPendingApprovals, fetchPendingApprovalsState] = <Array<any>>(
-    useApi()
-  );
+  const [fetchPendingApprovals, fetchPendingApprovalsState] =
+    useApi<Array<any>>();
   const [updateRfp, updateRfpState] = useApi();
 
   useEffect(() => {

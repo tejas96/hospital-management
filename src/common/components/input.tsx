@@ -1,7 +1,13 @@
 import React from "react";
 import { TextField } from "@material-ui/core";
+import { styled } from "@material-ui/core/styles";
 
-type MyInput = React.ComponentProps<typeof TextField> & {};
+const StyledInput = styled(TextField)(() => ({
+  "& .MuiFormHelperText-root": {
+    margin: 0,
+  },
+}));
+type MyInput = React.ComponentProps<typeof StyledInput> & {};
 
 const Input: React.FC<MyInput> = ({
   variant = "outlined",
@@ -14,7 +20,7 @@ const Input: React.FC<MyInput> = ({
   ...props
 }) => {
   return (
-    <TextField
+    <StyledInput
       label={label}
       type={type}
       value={value}

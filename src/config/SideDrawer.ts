@@ -1,8 +1,9 @@
 import {
   Dashboard,
-  LocalHospital,
   MonetizationOn,
   Store,
+  LocalHospital,
+  AddToQueue,
 } from "@material-ui/icons";
 
 const SideDrawerMenus = [
@@ -22,9 +23,14 @@ const SideDrawerMenus = [
     redirect: "/inventory",
   },
   {
-    label: "Operation Theatre",
+    label: "IPD/OPD",
     icon: LocalHospital,
-    redirect: "/operation-theatre",
+    redirect: "/ipd-opd",
+  },
+  {
+    label: "Online Appointment",
+    icon: AddToQueue,
+    redirect: "/online-appointment",
   },
 ];
 
