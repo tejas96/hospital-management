@@ -23,6 +23,11 @@ const SideDrawerMenus = [
     redirect: "/inventory",
   },
   {
+    label: "Operation Theatre",
+    icon: LocalHospital,
+    redirect: "/operation-theatre",
+  },
+  {
     label: "IPD/OPD",
     icon: LocalHospital,
     redirect: "/ipd-opd",

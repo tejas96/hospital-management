@@ -9,6 +9,7 @@ import {
   FinanceScreen,
   IPD_OPD,
   OnlineAppointments,
+  OperationTheatre,
 } from "src/pages";
 export interface IRoute {
   path: string;
@@ -83,6 +84,13 @@ const routes: Array<IRoute> = [
     authorizers: [UserRoles.ADMIN],
     isProtectiveRoute: true,
     key: "online appointment",
+  },
+  {
+    path: "/operation-theatre",
+    element: OperationTheatre,
+    authorizers: [UserRoles.ADMIN],
+    isProtectiveRoute: true,
+    key: "operation theatre",
   },
 ];
 
