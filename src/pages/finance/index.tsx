@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import { AssignmentTurnedIn } from "@material-ui/icons";
 import React from "react";
 import { Button, HeaderAndDrawer, Text } from "src/common/components";
 import useFinanceContainer from "src/pages/finance/container";
@@ -26,7 +27,8 @@ const FinanceScreen: React.FC<{}> = () => {
         <TableContainer component={Paper}>
           {fetchPendingApprovalsState.loading ? (
             <CircularProgress className="text-center" />
-          ) : (
+          ) : fetchPendingApprovalsState.data &&
+            fetchPendingApprovalsState.data.length ? (
             <Table aria-label="customized table">
               <TableHead>
                 <TableRow>
@@ -61,6 +63,11 @@ const FinanceScreen: React.FC<{}> = () => {
                 ))}
               </TableBody>
             </Table>
+          ) : (
+            <Box className="w-full flex justify-center items-center gap-4">
+              <Text variant="h4">No RFP</Text>
+              <AssignmentTurnedIn fontSize="large" />
+            </Box>
           )}
         </TableContainer>
       </Box>
