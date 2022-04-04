@@ -8,8 +8,9 @@ import { ApiMethods, Booking, Patient } from "src/model";
 
 interface IProps {
   patientData: Patient | null;
+  onBookingDone: () => void;
 }
-const BookAppointment: React.FC<IProps> = ({ patientData }) => {
+const BookAppointment: React.FC<IProps> = ({ patientData, onBookingDone }) => {
   const [dateAndTime, setDateAndTime] = useState<Date>(new Date());
   const [wordType, setWordType] = useState<string>("");
   const [diseaseSelect, setDiseaseSelect] = useState<string>("");
@@ -52,18 +53,22 @@ const BookAppointment: React.FC<IProps> = ({ patientData }) => {
     });
   };
   const handleAppointmentBook = () => {
-    toast.promise(
-      bookAppointment(
-        "/ipd-opd/patient/book-appointment",
-        ApiMethods.POST,
-        appointmentBook
-      ),
-      {
-        loading: "Booking...",
-        success: "Done",
-        error: "Error",
-      }
-    );
+    toast
+      .promise(
+        bookAppointment(
+          "/ipd-opd/patient/book-appointment",
+          ApiMethods.POST,
+          appointmentBook
+        ),
+        {
+          loading: "Booking...",
+          success: "Done",
+          error: "Error",
+        }
+      )
+      .then(() => {
+        onBookingDone();
+      });
   };
   return (
     <Box className="flex flex-col justify-center items-center w-ful">
