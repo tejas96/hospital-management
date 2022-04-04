@@ -9,6 +9,7 @@ import {
   TableHead,
   TableRow,
 } from "@material-ui/core";
+import { TableChart } from "@material-ui/icons";
 import React, { useState } from "react";
 import {
   Button,
@@ -52,41 +53,48 @@ const OnlineAppointments: React.FC<{}> = () => {
         <TableContainer component={Paper}>
           {bookingState.loading ? (
             <CircularProgress className="text-center" />
-          ) : (
-            <Table aria-label="customized table">
-              <TableHead>
-                <TableRow>
-                  <TableCell align="right">#</TableCell>
-                  <TableCell align="right">Name</TableCell>
-                  <TableCell align="right">phone</TableCell>
-                  <TableCell align="right">Doctor</TableCell>
-                  <TableCell align="right">Treatment</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {bookingState.data?.map((row: any, index: number) => (
-                  <TableRow
-                    key={row.id}
-                    className="hover:bg-red-400 cursor-pointer hover:shadow-xl"
-                    onClick={() => {
-                      handleSelectRecord(row);
-                    }}
-                  >
-                    <TableCell align="right">{index + 1}</TableCell>
-                    <TableCell align="right">{`${row.firstName} ${row.lastName}`}</TableCell>
-                    <TableCell align="right">{row.phoneNumber}</TableCell>
-                    <TableCell align="right">
-                      {
-                        disease.find(
-                          (item) => item.doctorAssociated.id === row.doctorId
-                        )?.doctorAssociated.name
-                      }
-                    </TableCell>
-                    <TableCell align="right">{row.treatmentType}</TableCell>
+          ) : bookingState.data?.length > 0 ? (
+            <>
+              <Table aria-label="customized table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell align="right">#</TableCell>
+                    <TableCell align="right">Name</TableCell>
+                    <TableCell align="right">phone</TableCell>
+                    <TableCell align="right">Doctor</TableCell>
+                    <TableCell align="right">Treatment</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHead>
+                <TableBody>
+                  {bookingState.data?.map((row: any, index: number) => (
+                    <TableRow
+                      key={row.id}
+                      className="hover:bg-red-400 cursor-pointer hover:shadow-xl"
+                      onClick={() => {
+                        handleSelectRecord(row);
+                      }}
+                    >
+                      <TableCell align="right">{index + 1}</TableCell>
+                      <TableCell align="right">{`${row.firstName} ${row.lastName}`}</TableCell>
+                      <TableCell align="right">{row.phoneNumber}</TableCell>
+                      <TableCell align="right">
+                        {
+                          disease.find(
+                            (item) => item.doctorAssociated.id === row.doctorId
+                          )?.doctorAssociated.name
+                        }
+                      </TableCell>
+                      <TableCell align="right">{row.treatmentType}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </>
+          ) : (
+            <Box className="w-full flex justify-center items-center gap-4">
+              <Text variant="h4">No Patient</Text>
+              <TableChart fontSize="large" />
+            </Box>
           )}
         </TableContainer>
       </Box>

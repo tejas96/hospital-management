@@ -16,7 +16,6 @@ const ProtectiveRoutes: React.FC<IProps> = ({
   const { user: authUser, sessionUserLoading: authLoading } = useSession();
   const navigate = useNavigate();
   const loggedInUser = useLoggedInUser();
-  console.log(loggedInUser);
   useEffect(() => {
     if (!authLoading && !authUser) {
       navigate("/login");

@@ -36,9 +36,13 @@ const PatientAndDoctorAllocation: React.FC<IProps> = ({
       fetchPatientBookingDetails(
         `/ipd-opd/patient/ipd/${patient.id}`,
         ApiMethods.GET
-      ).then((res) => {
-        setPatientBookingDetails(res.data);
-      });
+      )
+        .then((res) => {
+          setPatientBookingDetails(res.data);
+        })
+        .catch(() => {
+          toast.error("No booking found for this patient");
+        });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [patient]);
@@ -56,23 +60,32 @@ const PatientAndDoctorAllocation: React.FC<IProps> = ({
     [selectedDoctors]
   );
   const handleSubmit = useCallback(() => {
-    toast.promise(
-      addPatientForOperation("/ot/add-patient", ApiMethods.POST, {
-        patientId: patient?.id,
-        bookingId: patientBookingDetails?.id,
-        doctorTeam: selectedDoctors.map((doctor) => doctor.id),
-        agreementSign: agree,
-      }),
-      {
-        loading: "Adding Patient",
-        success: "Patient Added Successfully",
-        error: "Error in adding patient",
-      }
-    );
+    const { id: _, ...restPatient } = patient;
+    const { id: bookingId, ...restPatientBookingDetails } =
+      patientBookingDetails;
+    toast
+      .promise(
+        addPatientForOperation("/ot/add-patient", ApiMethods.POST, {
+          ...restPatient,
+          ...restPatientBookingDetails,
+          doctorTeam: selectedDoctors.map((doctor) => doctor.id),
+          agreementSign: agree,
+          bookingId,
+          operation: "",
+        }),
+        {
+          loading: "Adding Patient",
+          success: "Patient Added Successfully",
+          error: "Error in adding patient",
+        }
+      )
+      .then(() => {
+        window.location.reload();
+      });
   }, [patient, patientBookingDetails, selectedDoctors]);
   return (
     <Box className="w-full">
-      {patient ? (
+      {patient && patientBookingDetails ? (
         <Box>
           <Text variant="h4">Patient Details</Text>
           <Box className="flex flex-col shadow-2xl w-[90%] mx-auto rounded-md p-4">

@@ -3,10 +3,16 @@ import React from "react";
 import { Button, Modal, Text } from "src/common/components";
 import { HeaderAndDrawer } from "src/common/components";
 import useOt from "./container";
+import ListOfPatient from "./ListOfOperationPatient";
 import PatientAndDoctorAllocation from "./PatientAndDoctorAllocation";
 const OPerationTheater: React.FC<{}> = () => {
-  const { openModal, setOpaModal, handleGetPatientByPhoneNumber, patient } =
-    useOt();
+  const {
+    openModal,
+    setOpaModal,
+    handleGetPatientByPhoneNumber,
+    patient,
+    fetchOtPatientsState,
+  } = useOt();
   return (
     <>
       <HeaderAndDrawer />
@@ -15,7 +21,7 @@ const OPerationTheater: React.FC<{}> = () => {
           <Text variant="h4">Operation Theater</Text>
           <Button label="Add Patient" onClick={() => setOpaModal(true)} />
         </Box>
-
+        <ListOfPatient OperationPatientList={fetchOtPatientsState.data} />
         <Modal
           open={openModal}
           onClose={() => {
