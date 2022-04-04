@@ -17,7 +17,7 @@ const useLoggedInUser = () => {
       ).finally(() => setLoading(false));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (!fetchLoggedInUserState.loading && fetchLoggedInUserState.data) {

@@ -6,7 +6,7 @@ import {
   Input,
   Modal,
 } from "src/common/components";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import useIpdOpdContainer from "src/pages/ipd-opd/container";
 import RegisterPatient from "src/pages/ipd-opd/registerPatient";
 import BookAppointment from "src/pages/ipd-opd/bookAppointment";
@@ -26,6 +26,10 @@ const IPD_OPD: React.FC<IProps> = () => {
     handlePatientRegisterSubmit,
     screen,
   } = useIpdOpdContainer();
+  const handleOnBookingDone = useCallback(() => {
+    setOpen(false);
+    window.location.reload();
+  }, []);
   return (
     <>
       <HeaderAndDrawer />
@@ -73,7 +77,10 @@ const IPD_OPD: React.FC<IProps> = () => {
               />
             )}
             {screen.patientAppointmentScreen && (
-              <BookAppointment patientData={patientRegistrationData.patient} />
+              <BookAppointment
+                onBookingDone={handleOnBookingDone}
+                patientData={patientRegistrationData.patient}
+              />
             )}
           </Box>
         </Modal>
