@@ -1,8 +1,8 @@
 import { alpha, Button, CircularProgress } from "@material-ui/core";
-import { styled } from "@material-ui/styles";
+import { styled } from "@material-ui/core";
 import * as React from "react";
 
-const MButton = styled(Button)(({ theme, color }) => ({
+const MButton = styled(Button)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
   color: "white",
   "&:hover": {

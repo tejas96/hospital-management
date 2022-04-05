@@ -6,7 +6,7 @@ import HospitalManagement from "./routes/index";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { AuthProvider, UtilityProvider } from "src/providers";
-import { ThemeProvider as MUIThemeProvider } from "@material-ui/styles";
+import { ThemeProvider as MUIThemeProvider } from "@material-ui/core";
 import MuiTheme from "src/config/MUITheme";
 import { RecoilRoot } from "recoil";
 
