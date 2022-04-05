@@ -16,7 +16,7 @@ const RegisterPatient: React.FC<IProps> = ({
 }) => {
   return (
     <Box className="flex flex-col justify-center items-center">
-      <Text variant="h5">Book Appointment</Text>
+      <Text variant="h5">Register Patient</Text>
       <Box className="my-2 w-full">
         <Input
           className="w-[300px]"

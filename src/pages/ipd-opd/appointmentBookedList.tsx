@@ -78,6 +78,7 @@ const AppointmentBookedList: React.FC<IProps> = () => {
                   <TableCell align="right"></TableCell>
                   <TableCell align="right">#</TableCell>
                   <TableCell align="right">Name</TableCell>
+                  <TableCell align="right">Phone</TableCell>
                   <TableCell align="right">Doctor</TableCell>
                   <TableCell align="right">Treatment</TableCell>
                   <TableCell align="right">Appointment Time</TableCell>
@@ -97,6 +98,7 @@ const AppointmentBookedList: React.FC<IProps> = () => {
                       </TableCell>
                       <TableCell align="right">{index + 1}</TableCell>
                       <TableCell align="right">{data.patientName}</TableCell>
+                      <TableCell align="right">{data.phoneNumber}</TableCell>
                       <TableCell align="right">
                         {
                           disease.find(
