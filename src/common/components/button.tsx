@@ -1,14 +1,6 @@
-import { alpha, Button, CircularProgress } from "@material-ui/core";
-import { styled } from "@material-ui/core";
+import { Button, CircularProgress } from "@material-ui/core";
 import * as React from "react";
 
-const MButton = styled(Button)(({ theme }) => ({
-  backgroundColor: theme.palette.primary.main,
-  color: "white",
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.primary.dark, 0.8),
-  },
-}));
 type IProps = React.ComponentProps<typeof Button> & {
   label: string;
   loading?: boolean;
@@ -20,7 +12,8 @@ const BasicButtons: React.FC<IProps> = ({
   ...props
 }) => {
   return (
-    <MButton
+    <Button
+      color="primary"
       {...(loading
         ? {
             startIcon: (
@@ -32,7 +25,7 @@ const BasicButtons: React.FC<IProps> = ({
       {...props}
     >
       {label}
-    </MButton>
+    </Button>
   );
 };
 

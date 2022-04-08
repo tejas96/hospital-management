@@ -1,5 +1,6 @@
 import { GoogleApiWrapper, Map as GMap, Marker } from "google-maps-react";
 import React from "react";
+import hospitalIcon from "src/assets/hospital.png";
 interface IProps {
   google: any;
 }
@@ -14,7 +15,7 @@ const Map: React.FC<IProps> = ({ google, ...props }) => {
       google={google}
       {...props}
     >
-      <Marker />
+      <Marker icon={hospitalIcon} title={"Gandhi Hospital Sangli"} />
     </GMap>
   );
 };

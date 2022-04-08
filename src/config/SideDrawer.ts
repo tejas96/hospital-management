@@ -1,5 +1,6 @@
 import {
   AddToQueue,
+  Assessment,
   Dashboard,
   Healing,
   LocalHospital,
@@ -28,9 +29,9 @@ const SideDrawerMenus = [
     redirect: "/ipd-opd",
   },
   {
-    label: "Online Appointment",
-    icon: AddToQueue,
-    redirect: "/online-appointment",
+    label: "HMS",
+    icon: Assessment,
+    redirect: "/reports",
   },
 ];
 

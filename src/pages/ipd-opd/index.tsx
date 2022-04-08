@@ -11,9 +11,11 @@ import useIpdOpdContainer from "src/pages/ipd-opd/container";
 import RegisterPatient from "src/pages/ipd-opd/registerPatient";
 import BookAppointment from "src/pages/ipd-opd/bookAppointment";
 import AppointmentBookingList from "src/pages/ipd-opd/appointmentBookedList";
+import { useNavigate } from "react-router-dom";
 
 interface IProps {}
 const IPD_OPD: React.FC<IProps> = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = useState<boolean>(false);
   const {
     phoneNumber,
@@ -34,7 +36,12 @@ const IPD_OPD: React.FC<IProps> = () => {
     <>
       <HeaderAndDrawer />
       <Box className="min-w-full min-h-screen flex flex-col">
-        <Box className="flex justify-end items-center my-2 p-2">
+        <Box className="flex justify-end items-center my-2 p-2 gap-7">
+          <Button
+            variant="text"
+            onClick={() => navigate("/online-appointment")}
+            label="Approve online appointments"
+          />
           <Button onClick={() => setOpen(true)} label="Book Appointment" />
         </Box>
         <AppointmentBookingList />

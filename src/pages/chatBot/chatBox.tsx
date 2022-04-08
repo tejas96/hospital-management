@@ -35,7 +35,7 @@ const Wrapper: React.FC<IWrapper> = ({ children, align }) => {
 const ChatBox: React.FC<{}> = () => {
   const { state, setState } = useChatBot();
   return (
-    <Box className="h-[500px] shadow-sm  w-[350px] relative bg-white overflow-x-auto p-2">
+    <Box className="h-[500px] shadow-sm  w-[350px] relative bg-white overflow-x-auto p-2 rounded">
       <Wrapper align="left">
         <ChatStartMessage />
       </Wrapper>
