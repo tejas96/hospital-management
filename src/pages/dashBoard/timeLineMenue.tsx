@@ -43,6 +43,7 @@ export default function TimeLineMenu() {
               hospital inpatient functionality from Patient registration to the
               billing with a complete tracking of Patient records.
             </Text>
+            <Button label="More..." onClick={() => navigation("/ipd-opd")} />
           </Box>
         </TimelineContent>
       </TimelineItem>
@@ -68,6 +69,7 @@ export default function TimeLineMenu() {
               wards, OT, pharmacies etc. and regulates the complete stock
               movement across the entire hospital.
             </Text>
+            <Button label="More..." onClick={() => navigation("/inventory")} />
           </Box>
         </TimelineContent>
       </TimelineItem>
@@ -94,6 +96,10 @@ export default function TimeLineMenu() {
               consumable management, accounting and Operation theater roster and
               notes with Death and Birth certificates.
             </Text>
+            <Button
+              label="More..."
+              onClick={() => navigation("/operation-theatre")}
+            />
           </Box>
         </TimelineContent>
       </TimelineItem>
@@ -118,6 +124,7 @@ export default function TimeLineMenu() {
               User wise Collection reports, Department wise Sales and Daily OPD
               / IPD Report (Department wise).
             </Text>
+            <Button label="More..." onClick={() => navigation("/reports")} />
           </Box>
         </TimelineContent>
       </TimelineItem>
