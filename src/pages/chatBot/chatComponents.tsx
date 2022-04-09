@@ -178,6 +178,15 @@ export const BookAppointmentOption: React.FC<{}> = () => {
     }
     bookOnline(`/hospital/book-request`, ApiMethods.POST, payload).then(() => {
       setShowBookSuccessMessage(true);
+      let speech = new SpeechSynthesisUtterance();
+      speech.lang = "en-US";
+      speech.text =
+        "Your appointment has been sent, once our admin member accept your request we will inform you through SMS. Thanks for choosing us";
+      speech.volume = 1;
+      speech.rate = 1;
+      speech.pitch = 1;
+
+      window.speechSynthesis.speak(speech);
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [patientDetails, patient]);

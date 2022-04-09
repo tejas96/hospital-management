@@ -18,14 +18,7 @@ const Login: React.FC = () => {
           A.S.P.R HOSPITAL
         </Typography>
 
-        <div className="container">
-          <div className="grid">
-            <div className="col-10_sm-12">PATIENT ID #1888450</div>
-            <div className="col-2_sm-12">
-              {moment().format("DD MMM YYYY hh:mm")}
-            </div>
-          </div>
-        </div>
+        <div className="container"></div>
 
         <div className="container">
           <div className="grid">
@@ -100,11 +93,11 @@ const Login: React.FC = () => {
           </defs>
         </svg>
       </Box>
-      <Box className="h-full bg-red-300 w-[30%] flex justify-center items-center">
+      <Box className="h-full w-[30%] flex justify-center items-center">
         <form>
           <InputContainer>
             <Text
-              className="text-white font-bold"
+              className=" font-bold"
               style={{ margin: "10px 0" }}
               variant="h4"
             >

@@ -11,6 +11,7 @@ import {
 import BasicTabs from "src/pages/inventory/components/tabWindow";
 import { selectDropDownOptions } from "src/pages/inventory/dummy";
 import useInventoryContainer from "./container";
+
 interface IProps {}
 
 const Inventory: React.FC<IProps> = () => {

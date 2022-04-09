@@ -51,7 +51,6 @@ const AppointmentBookedList: React.FC<IProps> = () => {
     [fetchAllAppointmentState]
   );
   const handleAppointmentUpdate = useCallback(() => {
-    console.log();
     toast
       .promise(
         updateAppointment("/ipd-opd/patient/book-appointment", ApiMethods.PUT, {
@@ -67,11 +66,11 @@ const AppointmentBookedList: React.FC<IProps> = () => {
   }, [selectedAppointment, cancelModal]);
   return (
     <>
-      <Box className="flex justify-center items-center flex-col">
+      <Box className="flex bg-none justify-center items-center flex-col">
         {fetchAllAppointmentState.loading ? (
           <CircularProgress className="text-center" />
         ) : (
-          <TableContainer component={Paper}>
+          <TableContainer className="bg-none" component={Paper}>
             <Table aria-label="customized table">
               <TableHead>
                 <TableRow>

@@ -1,49 +1,65 @@
-import { Box } from "@material-ui/core";
+import { Avatar, Box } from "@material-ui/core";
 import React, { useEffect } from "react";
 import { Footer, HeaderAndDrawer, Text } from "src/common/components";
 import { useApi } from "src/hooks";
-import { ApiMethods } from "src/model";
-import BarChart from "./Bar";
-import { PieChart } from "./pieChart";
-
+import { ApiMethods, Doctor } from "src/model";
+import Banner from "./Banner";
+import TimeLineMenu from "./timeLineMenue";
+import Dengue from "src/assets/dengu.jpg";
 const Dashboard = () => {
-  const [fetchBirthAndDeathCnt] = useApi();
-  const [fetchBookingsGraph] = useApi();
-  const [birthAndDeathCnt, setBirthAndDeathCnt] = React.useState<any>({
-    birth: 0,
-    death: 0,
-  });
-  const [bookingsGraph, setBookingsGraph] = React.useState<any>({
-    labels: [],
-    data: [],
-  });
+  const [fetchDoctors, { data }] = useApi<Array<Doctor>>();
   useEffect(() => {
-    fetchBirthAndDeathCnt("/ot/birthAndDeath", ApiMethods.GET).then((res) => {
-      setBirthAndDeathCnt(res.data);
-    });
-    fetchBookingsGraph("/graph/disease", ApiMethods.GET).then((res) => {
-      const labels = [] as any;
-      const data = [] as any;
-      Object.keys(res.data).forEach((key) => {
-        labels.push(key);
-        data.push(res.data[key]);
-      });
-      setBookingsGraph({ labels, data });
-    });
+    fetchDoctors("/hospital/doctors", ApiMethods.GET);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Box>
       <HeaderAndDrawer />
-      <Box className="w-full text-center p-2">
-        <Text variant="h4">Analytics</Text>
+      <Banner />
+      <TimeLineMenu />
+      <Text variant={"h4"}>Our Expertise</Text>
+      <Box className="mb-10 mt-15 flex-wrap flex w-full justify-center items-center h-auto">
+        {data?.length &&
+          data.map((item) => (
+            <Box className="p-5 mt-5 flex flex-col mx-10 justify-center w-60 items-center relative">
+              <Box className="w-32 h-32 absolute blur-[100px] z-0 bg-primary"></Box>
+              <Avatar
+                style={{ height: "100px", width: "100px" }}
+                alt="Remy Sharp"
+                src={item.profilePic}
+              />
+              <Text variant="subtitle1">{`${item.honorific}. ${item.fullName}`}</Text>
+              <Text variant="caption">{item.expertise.join(", ")}</Text>
+            </Box>
+          ))}
       </Box>
-      <Box className="w-full flex justify-center items-center h-screen lg:flex-col">
-        <Box className="w-1/2">
-          <BarChart birthAndDeathCnt={birthAndDeathCnt} />
-        </Box>
-        <Box className="w-1/2" style={{ height: "500px", width: "500px" }}>
-          <PieChart data={bookingsGraph} />
-        </Box>
+
+      <Text variant={"h4"}> We provide good facility for</Text>
+      <Box className="my-10 w-screen flex justify-center items-center flex-wrap gap-10">
+        {[
+          {
+            name: "Dengue",
+            info: "We have facility for dengue patients, we do better treatment here",
+          },
+          {
+            name: "Cancer",
+            info: "We have better equipments and doctors for diagnose cancer",
+          },
+          {
+            name: "Diabetes",
+            info: "Treatment of type 2 diabetes primarily involves lifestyle changes, monitoring of your blood sugar",
+          },
+          {
+            name: "Corona",
+            info: "Ample amount of beds and good facility for corona patients",
+          },
+        ].map((item) => (
+          <Box className="w-[300px] h-[350px] rounded shadow-xl text-center">
+            <img src={Dengue} className="h-[250px] w-[300px]" />
+            <Text variant={"h5"}>{item.name}</Text>
+            <Text>{item.info}</Text>
+          </Box>
+        ))}
       </Box>
       <Footer />
     </Box>

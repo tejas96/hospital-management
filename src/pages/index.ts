@@ -8,3 +8,4 @@ export { default as FinanceScreen } from "src/pages/finance";
 export { default as IPD_OPD } from "src/pages/ipd-opd";
 export { default as OnlineAppointments } from "src/pages/onlineAppointments";
 export { default as OperationTheatre } from "src/pages/ot";
+export { default as Hms } from "src/pages/hms";

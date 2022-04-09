@@ -35,7 +35,8 @@ const IPD_OPD: React.FC<IProps> = () => {
   return (
     <>
       <HeaderAndDrawer />
-      <Box className="min-w-full min-h-screen flex flex-col">
+      <Box className="absolute top-0 left-0 w-screen h-screen from-red-400 bg-gradient-to-tr -z-10" />
+      <Box className="min-w-full min-h-screen flex flex-col bg-none">
         <Box className="flex justify-end items-center my-2 p-2 gap-7">
           <Button
             variant="text"

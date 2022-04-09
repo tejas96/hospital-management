@@ -10,6 +10,7 @@ import {
   IPD_OPD,
   OnlineAppointments,
   OperationTheatre,
+  Hms,
 } from "src/pages";
 export interface IRoute {
   path: string;
@@ -91,6 +92,13 @@ const routes: Array<IRoute> = [
     authorizers: [UserRoles.ADMIN],
     isProtectiveRoute: true,
     key: "operation theatre",
+  },
+  {
+    path: "/reports",
+    element: Hms,
+    authorizers: [UserRoles.ADMIN],
+    isProtectiveRoute: true,
+    key: "reports",
   },
 ];
 

@@ -24,24 +24,33 @@ const Header: React.FC<IProps> = ({
               <Menu onClick={onHamburgIconClick} />
             </IconButton>
           )}
-          <Text variant="h6" color="textPrimary">
+          <Text variant="h4" color="textPrimary">
             ASPR Health
           </Text>
           <Box className="justify-end flex items-center" sx={{ flexGrow: 1 }}>
             <Text
+              variant={"h5"}
+              onClick={() => navigation("/")}
+              className="px-5 text-primary cursor-pointer"
+            >
+              Home
+            </Text>
+            <Text
+              variant={"h5"}
               onClick={() => navigation("/about")}
               className="px-5 text-primary cursor-pointer"
             >
               About
             </Text>
             <Text
+              variant={"h5"}
               onClick={() => navigation("/contact-us")}
               className="px-5 text-primary cursor-pointer"
             >
               Contact Us
             </Text>
             <IconButton onClick={() => session.logout()}>
-              <ExitToApp className="text-primary font-bold" />
+              <ExitToApp fontSize="large" className="text-primary font-bold" />
             </IconButton>
           </Box>
         </Toolbar>
