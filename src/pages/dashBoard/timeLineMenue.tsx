@@ -59,7 +59,7 @@ export default function TimeLineMenu() {
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent className="my-auto relative">
-          <Box className="text-right flex justify-end flex-col w-[400px] ml-auto">
+          <Box className="text-right w-[400px] ml-auto">
             <img src={inventory} alt={"ot image"} />
             <Text align="right" variant={"h5"}>
               Inventory
@@ -85,7 +85,7 @@ export default function TimeLineMenu() {
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent className="my-auto relative">
-          <Box className="text-right flex justify-end flex-col w-[400px]">
+          <Box className="text-left w-[400px]">
             <img src={ot} alt={"ot image"} />
             <Text align="left" variant={"h5"}>
               Operation Theater
@@ -115,7 +115,7 @@ export default function TimeLineMenu() {
           <TimelineConnector />
         </TimelineSeparator>
         <TimelineContent className="my-auto relative">
-          <Box className="text-right flex justify-end flex-col ml-auto w-[400px]">
+          <Box className="text-right ml-auto w-[400px]">
             <img src={hms} alt={"ot image"} />
             <Text align="right" variant={"h5"}>
               H.M.S Report
