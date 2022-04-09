@@ -14,6 +14,7 @@ import React, { useState } from "react";
 import {
   Button,
   DropDown,
+  FooterV2,
   HeaderAndDrawer,
   Input,
   Modal,
@@ -159,6 +160,7 @@ const OnlineAppointments: React.FC<{}> = () => {
           )}
         </Box>
       </Modal>
+      <FooterV2 />
     </>
   );
 };

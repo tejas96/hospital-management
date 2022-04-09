@@ -3,6 +3,7 @@ import { Box, CircularProgress, Divider } from "@material-ui/core";
 import {
   Button,
   DropDown,
+  FooterV2,
   HeaderAndDrawer,
   Input,
   Modal,
@@ -83,6 +84,7 @@ const Inventory: React.FC<IProps> = () => {
           </Box>
         </Modal>
       </Box>
+      <FooterV2 />
     </>
   );
 };

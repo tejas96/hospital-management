@@ -11,7 +11,7 @@ import {
 } from "@material-ui/core";
 import { AssignmentTurnedIn } from "@material-ui/icons";
 import React from "react";
-import { Button, HeaderAndDrawer, Text } from "src/common/components";
+import { Button, FooterV2, HeaderAndDrawer, Text } from "src/common/components";
 import useFinanceContainer from "src/pages/finance/container";
 
 const FinanceScreen: React.FC<{}> = () => {
@@ -71,6 +71,7 @@ const FinanceScreen: React.FC<{}> = () => {
           )}
         </TableContainer>
       </Box>
+      <FooterV2 />
     </>
   );
 };

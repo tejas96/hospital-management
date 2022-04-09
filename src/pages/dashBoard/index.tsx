@@ -1,6 +1,6 @@
 import { Avatar, Box } from "@material-ui/core";
 import React, { useEffect } from "react";
-import { Footer, HeaderAndDrawer, Text } from "src/common/components";
+import { FooterV2, HeaderAndDrawer, Text } from "src/common/components";
 import { useApi } from "src/hooks";
 import { ApiMethods, Doctor } from "src/model";
 import Banner from "./Banner";
@@ -61,7 +61,7 @@ const Dashboard = () => {
           </Box>
         ))}
       </Box>
-      <Footer />
+      <FooterV2 />
     </Box>
   );
 };

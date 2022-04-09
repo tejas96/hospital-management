@@ -1,17 +1,17 @@
 import { Box } from "@material-ui/core";
+import React, { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Button,
-  Footer,
+  FooterV2,
   HeaderAndDrawer,
   Input,
   Modal,
 } from "src/common/components";
-import React, { useCallback, useState } from "react";
+import AppointmentBookingList from "src/pages/ipd-opd/appointmentBookedList";
+import BookAppointment from "src/pages/ipd-opd/bookAppointment";
 import useIpdOpdContainer from "src/pages/ipd-opd/container";
 import RegisterPatient from "src/pages/ipd-opd/registerPatient";
-import BookAppointment from "src/pages/ipd-opd/bookAppointment";
-import AppointmentBookingList from "src/pages/ipd-opd/appointmentBookedList";
-import { useNavigate } from "react-router-dom";
 
 interface IProps {}
 const IPD_OPD: React.FC<IProps> = () => {
@@ -93,7 +93,7 @@ const IPD_OPD: React.FC<IProps> = () => {
           </Box>
         </Modal>
       </Box>
-      <Footer />
+      <FooterV2 />
     </>
   );
 };

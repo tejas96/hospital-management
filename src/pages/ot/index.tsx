@@ -1,7 +1,12 @@
 import { Box } from "@material-ui/core";
 import React from "react";
-import { Button, Modal, Text } from "src/common/components";
-import { HeaderAndDrawer } from "src/common/components";
+import {
+  Button,
+  FooterV2,
+  HeaderAndDrawer,
+  Modal,
+  Text,
+} from "src/common/components";
 import useOt from "./container";
 import ListOfPatient from "./ListOfOperationPatient";
 import PatientAndDoctorAllocation from "./PatientAndDoctorAllocation";
@@ -36,6 +41,7 @@ const OPerationTheater: React.FC<{}> = () => {
           </Box>
         </Modal>
       </Box>
+      <FooterV2 />
     </>
   );
 };
