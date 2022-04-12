@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import { Send } from "@material-ui/icons";
 import React, { useCallback, useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import {
   Button,
   DateTimePicker,
@@ -20,8 +21,20 @@ import {
 import { disease } from "src/common/const";
 import { useApi } from "src/hooks";
 import { ApiMethods, Doctor, Patient } from "src/model";
+import * as yup from "yup";
 
 export const ChatStartMessage: React.FC<{}> = () => {
+  useEffect(() => {
+    let speech = new SpeechSynthesisUtterance();
+    speech.lang = "en-US";
+    speech.text =
+      "Hi, I'm your personal healthcare assistant. Please choose your option";
+    speech.volume = 1;
+    speech.rate = 1;
+    speech.pitch = 1;
+
+    window.speechSynthesis.speak(speech);
+  }, []);
   return (
     <Box>
       <Text>
@@ -176,20 +189,38 @@ export const BookAppointmentOption: React.FC<{}> = () => {
     } else {
       payload = { ...patientDetails };
     }
-    bookOnline(`/hospital/book-request`, ApiMethods.POST, payload).then(() => {
-      setShowBookSuccessMessage(true);
-      let speech = new SpeechSynthesisUtterance();
-      speech.lang = "en-US";
-      speech.text =
-        "Your appointment has been sent, once our admin member accept your request we will inform you through SMS. Thanks for choosing us";
-      speech.volume = 1;
-      speech.rate = 1;
-      speech.pitch = 1;
-
-      window.speechSynthesis.speak(speech);
+    const schema = yup.object().shape({
+      firstName: yup.string().required("First name is required"),
+      lastName: yup.string().required("Last name is required"),
+      age: yup.number().typeError("Invalid age").required("Age is required"),
+      phoneNumber: yup.string().required("Phone number is required"),
+      treatmentType: yup.string().required("Treatment type is required"),
+      dateAndTime: yup.date().required("Date and time is required"),
     });
+    schema
+      .validate(payload)
+      .then(() => {
+        bookOnline(`/hospital/book-request`, ApiMethods.POST, payload).then(
+          () => {
+            setShowBookSuccessMessage(true);
+            let speech = new SpeechSynthesisUtterance();
+            speech.lang = "en-US";
+            speech.text =
+              "Your appointment has been sent, once our admin member accept your request we will inform you through SMS. Thanks for choosing us";
+            speech.volume = 1;
+            speech.rate = 1;
+            speech.pitch = 1;
+
+            window.speechSynthesis.speak(speech);
+          }
+        );
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [patientDetails, patient]);
+
   return (
     <>
       {!showBookSuccessMessage ? (
