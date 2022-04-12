@@ -34,7 +34,6 @@ const FinanceScreen: React.FC<{}> = () => {
                 <TableRow>
                   <TableCell align="right">Name</TableCell>
                   <TableCell align="right">Requested quantity</TableCell>
-                  <TableCell align="right">Unit price</TableCell>
                   <TableCell align="right"></TableCell>
                 </TableRow>
               </TableHead>
@@ -43,7 +42,6 @@ const FinanceScreen: React.FC<{}> = () => {
                   <TableRow key={row.id}>
                     <TableCell align="right">{row.name}</TableCell>
                     <TableCell align="right">{row.qty}</TableCell>
-                    <TableCell align="right">$.{row.price}</TableCell>
                     <TableCell align="right">
                       <Box className="flex justify-between items-center w-[200px]">
                         <Button

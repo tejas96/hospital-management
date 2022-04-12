@@ -2,6 +2,8 @@ import React, { useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { useApi } from "src/hooks";
 import { ApiMethods } from "src/model";
+import * as yup from "yup";
+
 interface RfpFormState {
   productName: string;
   quantity: number;
@@ -11,8 +13,7 @@ interface RfpFormState {
 const useInventoryContainer = () => {
   const [rfpFormState, setRfpFormState] = useState<RfpFormState>({
     productName: "",
-    quantity: 0,
-    unitPrice: 0,
+    quantity: 10,
   });
   const [createRfp, createRfpState] = useApi();
 
@@ -32,13 +33,32 @@ const useInventoryContainer = () => {
   };
 
   const handleCreateRfp = useCallback(() => {
-    createRfp("/rfp", ApiMethods.POST, rfpFormState)
+    const schema = yup.object().shape({
+      productName: yup.string().required("Product name is required"),
+      quantity: yup
+        .number()
+        .typeError("Invalid quantity")
+        .required("Quantity is required"),
+    });
+    schema
+      .validate(rfpFormState)
       .then(() => {
-        toast.success("RFP Created Successfully");
+        createRfp("/rfp", ApiMethods.POST, rfpFormState)
+          .then(() => {
+            toast.success("RFP Created Successfully");
+            setRfpFormState({
+              productName: "",
+              quantity: 0,
+            });
+          })
+          .catch(() => {
+            toast.error("Error creating RFP");
+          });
       })
-      .catch(() => {
-        toast.error("Error creating RFP");
+      .catch((error) => {
+        toast.error(error.message);
       });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rfpFormState]);
 

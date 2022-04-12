@@ -34,7 +34,7 @@ const Inventory: React.FC<IProps> = () => {
       <Box>
         <BasicTabs></BasicTabs>
         <Modal onClose={() => setOpen(false)} open={open}>
-          <Box className="flex flex-col p-5 md:w-[50%] w-[40%] sm:w-[90%] min-h-[50%] bg-white">
+          <Box className="flex flex-col p-5 md:w-[50%] w-[40%] sm:w-[90%] min-h-[40%] bg-white">
             <Text variant="h4">Raise RFP</Text>
             <Box className="my-5 w-full">
               <DropDown
@@ -58,16 +58,6 @@ const Inventory: React.FC<IProps> = () => {
                 onChange={handleOnChange}
               />
             </Box>
-            <Box className="my-5 w-full">
-              <Input
-                className={"w-full"}
-                label="Unit Price"
-                name="unitPrice"
-                type="number"
-                value={rfpFormState.unitPrice}
-                onChange={handleOnChange}
-              />
-            </Box>
             <Box className="mx-auto w-10/12">
               <Button
                 disabled={createRfpState.loading}
@@ -78,7 +68,7 @@ const Inventory: React.FC<IProps> = () => {
                 }
                 onClick={handleCreateRfp}
                 className="w-full"
-                label="Crete"
+                label="Create"
               />
             </Box>
           </Box>
