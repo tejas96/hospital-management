@@ -7,7 +7,7 @@ const ChatBot: React.FC<{}> = () => {
   const [toggleChat, setToggleChat] = useState(false);
 
   return (
-    <Box className="absolute bottom-0 right-0 m-16 flex justify-end flex-col items-end z-10 ">
+    <Box className="fixed bottom-0 right-0 m-16 flex justify-end flex-col items-end z-10 ">
       {toggleChat && <ChatBox />}
       <ChatBubble
         onClick={() => setToggleChat((prev) => !prev)}

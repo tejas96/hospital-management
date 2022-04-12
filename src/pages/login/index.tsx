@@ -1,107 +1,39 @@
-import { Box, Typography } from "@material-ui/core";
-import moment from "moment";
+import { Box, Divider } from "@material-ui/core";
 import React from "react";
-import { Button, Input, Text } from "src/common/components";
+import { Button, Footer, Input, Text } from "src/common/components";
 import ChatBot from "src/pages/chatBot";
 import useLoginContainer from "src/pages/login/container";
 import { InputContainer } from "src/pages/login/style";
 import "./heartPulse.css";
-import hospitalLogo from "src/assets/hospital1.png";
-
+import inventory from "src/assets/inventory.jpg";
+import ot from "src/assets/ot.jpg";
+import ipdopd from "src/assets/ipd.jpg";
+import hms from "src/assets/hms.jpg";
 const Login: React.FC = () => {
   const { loginState, handleChange, handleSubmit } = useLoginContainer();
   return (
-    <Box className="w-screen h-screen flex justify-center bg-[#f5f5f5] items-center">
-      <Box className="h-full bg-primary w-[70%] flex justify-center flex-col items-center">
-        <img src={hospitalLogo} alt={"logo"} className="h-[200px] w-[200px]" />
-        <Typography className="text-white my-9" variant="h1">
-          A.S.P.R HOSPITAL
-        </Typography>
-
-        <div className="container"></div>
-
-        <div className="container">
-          <div className="grid">
-            <div className="col-10_sm-12 graph">
-              <div className="cell cell-1"></div>
-              <div className="cell cell-2"></div>
-              <div className="cell cell-3"></div>
-              <div className="cell cell-4"></div>
-              <div className="cell cell-5"></div>
-              <div className="cell cell-6"></div>
-            </div>
-
-            <div className="col-2_sm-12">
-              <div className="number-1">
-                <span>&#9829;</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <svg width="0" height="0" className="filters">
-          <defs>
-            <filter
-              id="filter0_dd"
-              x="0.858887"
-              y="28.9809"
-              width="644.262"
-              height="124.108"
-              filterUnits="userSpaceOnUse"
-              color-interpolation-filters="sRGB"
-            >
-              <feFlood flood-opacity="0" result="BackgroundImageFix" />
-              <feColorMatrix
-                in="SourceAlpha"
-                type="matrix"
-                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-              />
-              <feOffset />
-              <feGaussianBlur stdDeviation="2" />
-              <feColorMatrix
-                type="matrix"
-                values="0 0 0 0 0.215686 0 0 0 0 0.686275 0 0 0 0 0.54902 0 0 0 1 0"
-              />
-              <feBlend
-                mode="normal"
-                in2="BackgroundImageFix"
-                result="effect1_dropShadow"
-              />
-              <feColorMatrix
-                in="SourceAlpha"
-                type="matrix"
-                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-              />
-              <feOffset />
-              <feGaussianBlur stdDeviation="4" />
-              <feColorMatrix
-                type="matrix"
-                values="0 0 0 0 0.215686 0 0 0 0 0.686275 0 0 0 0 0.54902 0 0 0 1 0"
-              />
-              <feBlend
-                mode="normal"
-                in2="effect1_dropShadow"
-                result="effect2_dropShadow"
-              />
-              <feBlend
-                mode="normal"
-                in="SourceGraphic"
-                in2="effect2_dropShadow"
-                result="shape"
-              />
-            </filter>
-          </defs>
-        </svg>
-      </Box>
-      <Box className="h-full w-[30%] flex justify-center items-center">
+    <>
+      <Box className=" h-screen w-screen flex justify-center items-center page-1 relative gap-10">
+        <div className="light x1"></div>
+        <div className="light x2"></div>
+        <div className="light x3"></div>
+        <div className="light x4"></div>
+        <div className="light x5"></div>
+        <div className="light x6"></div>
+        <div className="light x7"></div>
+        <div className="light x8"></div>
+        <div className="light x9"></div>
+        <Text className="text-white" variant="h1">
+          ASPR Hospital
+        </Text>
         <form>
           <InputContainer>
             <Text
               className=" font-bold"
-              style={{ margin: "10px 0" }}
+              style={{ margin: "10px 0", color: "white" }}
               variant="h4"
             >
-              Hospital Login
+              Login
             </Text>
             <Input
               fullWidth
@@ -110,7 +42,8 @@ const Login: React.FC = () => {
               value={loginState.hospitalId}
               style={{ margin: "10px 0" }}
               variant="outlined"
-              label={"Hospital ID"}
+              label={"Id"}
+              className="border border-primary bg-white rounded"
             />
             <Input
               autoComplete="on"
@@ -122,6 +55,7 @@ const Login: React.FC = () => {
               style={{ margin: "10px 0" }}
               variant="outlined"
               label={"Password"}
+              className="border border-primary bg-white rounded"
             />
             <Button
               onClick={handleSubmit}
@@ -131,9 +65,93 @@ const Login: React.FC = () => {
           </InputContainer>
         </form>
       </Box>
-
+      <Box className="page-2 w-screen h-screen relative">
+        <ul className="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <Box className="flex justify-center items-center w-full h-full gap-10">
+          <Box>
+            <Text variant="h3" className="text-white">
+              Inventory
+            </Text>
+            <img src={inventory} className="mt-10" />
+          </Box>
+          <Box className="h-1/2 w-[1px] bg-white"></Box>
+          <Text className="text-white w-1/2">
+            The inventory module spreads across the entire hospital from wards,
+            OT, pharmacies etc. and regulates the complete stock movement across
+            the entire hospital.
+          </Text>
+        </Box>
+      </Box>
+      <Box className="page-3 w-screen h-screen flex justify-center items-center gap-10">
+        <Text className="text-white w-1/2">
+          Operation theater module caters to the scheduling of operation
+          theaters, surgery team, patient tracking, operation theater consumable
+          management, accounting and Operation theater roster and notes with
+          Death and Birth certificates.
+        </Text>
+        <Box className="h-1/2 w-[1px] bg-white"></Box>
+        <Box>
+          <Text variant="h3" className="text-white">
+            Operation Theater
+          </Text>
+          <img src={ot} className="mt-10" />
+        </Box>
+      </Box>
+      <Box className="flex justify-center items-center w-full h-full gap-10 page-4">
+        <Box>
+          <Text variant="h3" className="text-white">
+            IPD/OPD
+          </Text>
+          <img src={ipdopd} className="mt-10" />
+        </Box>
+        <Box className="h-1/2 w-[1px] bg-white"></Box>
+        <Text className="text-white w-1/2">
+          Complete Inpatient Management Module that manages all your hospital
+          inpatient functionality from Patient registration to the billing with
+          a complete tracking of Patient records.
+        </Text>
+      </Box>
+      <Box className="page-2 w-screen h-screen relative">
+        <ul className="circles">
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <Box className="flex justify-center items-center w-full h-full gap-10">
+          <Text className="text-white w-1/2">
+            User wise Collection reports, Department wise Sales and Daily OPD /
+            IPD Report (Department wise).
+          </Text>
+          <Box className="h-1/2 w-[1px] bg-white"></Box>
+          <Box>
+            <Text variant="h3" className="text-white">
+              HMS
+            </Text>
+            <img src={hms} className="mt-10" />
+          </Box>
+        </Box>
+      </Box>
+      <Footer />
       <ChatBot />
-    </Box>
+    </>
   );
 };
 

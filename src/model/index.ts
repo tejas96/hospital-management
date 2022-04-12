@@ -1,6 +1,7 @@
 export enum UserRoles {
   ADMIN = "Admin",
   FINANCE = "Finance",
+  PATIENT = "Patient",
 }
 
 export enum ApiMethods {
