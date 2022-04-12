@@ -5,6 +5,7 @@ import { DropDown, Text, DateTimePicker, Button } from "src/common/components";
 import { disease } from "src/common/const";
 import { useApi } from "src/hooks";
 import { ApiMethods, Booking, Patient } from "src/model";
+import * as yup from "yup";
 
 interface IProps {
   patientData: Patient | null;
@@ -20,7 +21,7 @@ const BookAppointment: React.FC<IProps> = ({ patientData, onBookingDone }) => {
     dateAndTime: "",
     paid: false,
     amount: 0,
-    wardType: "IPD",
+    wardType: "",
     treatmentType: "",
     patientName: `${patientData?.firstName} ${patientData?.lastName}`,
   });
@@ -53,21 +54,33 @@ const BookAppointment: React.FC<IProps> = ({ patientData, onBookingDone }) => {
     });
   };
   const handleAppointmentBook = () => {
-    toast
-      .promise(
-        bookAppointment(
-          "/ipd-opd/patient/book-appointment",
-          ApiMethods.POST,
-          appointmentBook
-        ),
-        {
-          loading: "Booking...",
-          success: "Done",
-          error: "Error",
-        }
-      )
+    const schema = yup.object().shape({
+      treatmentType: yup.string().required("Please select treatment type"),
+      wardType: yup.string().required("Please select ward type"),
+      dateAndTime: yup.string().required("Please select date and time"),
+    });
+    schema
+      .validate(appointmentBook)
       .then(() => {
-        onBookingDone();
+        toast
+          .promise(
+            bookAppointment(
+              "/ipd-opd/patient/book-appointment",
+              ApiMethods.POST,
+              appointmentBook
+            ),
+            {
+              loading: "Booking...",
+              success: "Done",
+              error: "Error",
+            }
+          )
+          .then(() => {
+            onBookingDone();
+          });
+      })
+      .catch((err) => {
+        toast.error(err.message);
       });
   };
   return (

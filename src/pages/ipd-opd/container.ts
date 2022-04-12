@@ -3,7 +3,7 @@ import { useApi } from "src/hooks";
 import { ApiMethods, Patient } from "src/model";
 import produce from "immer";
 import toast from "react-hot-toast";
-
+import * as yup from "yup";
 interface AppointmentBookingState {
   patient: Patient | null;
   error: any;
@@ -105,17 +105,29 @@ const useIpdOpdContainer = () => {
   }, []);
 
   const handlePatientRegisterSubmit = useCallback(() => {
-    toast.promise(
-      registerPatient("/ipd-opd/patient", ApiMethods.POST, {
-        ...patientRegistrationData.patient,
-        phoneNumber: phoneNumber.phoneNumber,
-      }),
-      {
-        loading: "Registering Patient",
-        success: "Done",
-        error: "Error!!!",
-      }
-    );
+    const schema = yup.object().shape({
+      firstName: yup.string().required("First Name is required"),
+      lastName: yup.string().required("Last Name is required"),
+      age: yup.number().typeError("Invalid age").required("Age is required"),
+    });
+    schema
+      .validate(patientRegistrationData.patient)
+      .then(() => {
+        toast.promise(
+          registerPatient("/ipd-opd/patient", ApiMethods.POST, {
+            ...patientRegistrationData.patient,
+            phoneNumber: phoneNumber.phoneNumber,
+          }),
+          {
+            loading: "Registering Patient",
+            success: "Done",
+            error: "Error!!!",
+          }
+        );
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [patientRegistrationData, phoneNumber]);
 
