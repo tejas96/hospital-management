@@ -34,7 +34,11 @@ export default function TimeLineMenu() {
         </TimelineSeparator>
         <TimelineContent className="my-auto relative">
           <Box className="w-[400px]">
-            <img src={ipdImg} alt={"ipd image"} />
+            <img
+              src={ipdImg}
+              alt={"ipd image"}
+              onClick={() => navigation("/ipd-opd")}
+            />
             <Text align="left" variant={"h5"}>
               IPD/OPD Management
             </Text>
@@ -43,7 +47,6 @@ export default function TimeLineMenu() {
               hospital inpatient functionality from Patient registration to the
               billing with a complete tracking of Patient records.
             </Text>
-            <Button label="More..." onClick={() => navigation("/ipd-opd")} />
           </Box>
         </TimelineContent>
       </TimelineItem>
@@ -60,7 +63,11 @@ export default function TimeLineMenu() {
         </TimelineSeparator>
         <TimelineContent className="my-auto relative">
           <Box className="text-right w-[400px] ml-auto">
-            <img src={inventory} alt={"ot image"} />
+            <img
+              src={inventory}
+              alt={"ot image"}
+              onClick={() => navigation("/inventory")}
+            />
             <Text align="right" variant={"h5"}>
               Inventory
             </Text>
@@ -69,7 +76,6 @@ export default function TimeLineMenu() {
               wards, OT, pharmacies etc. and regulates the complete stock
               movement across the entire hospital.
             </Text>
-            <Button label="More..." onClick={() => navigation("/inventory")} />
           </Box>
         </TimelineContent>
       </TimelineItem>
@@ -86,7 +92,11 @@ export default function TimeLineMenu() {
         </TimelineSeparator>
         <TimelineContent className="my-auto relative">
           <Box className="text-left w-[400px]">
-            <img src={ot} alt={"ot image"} />
+            <img
+              src={ot}
+              alt={"ot image"}
+              onClick={() => navigation("/operation-theatre")}
+            />
             <Text align="left" variant={"h5"}>
               Operation Theater
             </Text>
@@ -96,10 +106,6 @@ export default function TimeLineMenu() {
               consumable management, accounting and Operation theater roster and
               notes with Death and Birth certificates.
             </Text>
-            <Button
-              label="More..."
-              onClick={() => navigation("/operation-theatre")}
-            />
           </Box>
         </TimelineContent>
       </TimelineItem>
@@ -116,7 +122,11 @@ export default function TimeLineMenu() {
         </TimelineSeparator>
         <TimelineContent className="my-auto relative">
           <Box className="text-right ml-auto w-[400px]">
-            <img src={hms} alt={"ot image"} />
+            <img
+              src={hms}
+              alt={"ot image"}
+              onClick={() => navigation("/reports")}
+            />
             <Text align="right" variant={"h5"}>
               H.M.S Report
             </Text>
@@ -124,7 +134,6 @@ export default function TimeLineMenu() {
               User wise Collection reports, Department wise Sales and Daily OPD
               / IPD Report (Department wise).
             </Text>
-            <Button label="More..." onClick={() => navigation("/reports")} />
           </Box>
         </TimelineContent>
       </TimelineItem>
