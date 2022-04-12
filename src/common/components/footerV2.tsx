@@ -3,8 +3,10 @@ import { Facebook, Instagram, Twitter } from "@material-ui/icons";
 import React from "react";
 import Text from "./text";
 import logo from "src/assets/hospital1.png";
+import { useNavigate } from "react-router-dom";
 
 const FooterV2: React.FC = () => {
+  const navigation = useNavigate();
   return (
     <Box className="bg-[#282C34] relative p-4 w-screen h-[70vh] flex-col flex gap-10 justify-start items-center">
       <Box className="flex gap-10">
@@ -92,18 +94,21 @@ const FooterV2: React.FC = () => {
           <Text
             variant={"caption"}
             className="text-white hover:text-gray-300 hover:underline"
+            onClick={() => navigation("/ipd-opd")}
           >
             IPD & OPD Ward
           </Text>
           <Text
             variant={"caption"}
             className="text-white hover:text-gray-300 hover:underline"
+            onClick={() => navigation("/inventory")}
           >
-            ICU
+            Inventory
           </Text>
           <Text
             variant={"caption"}
             className="text-white hover:text-gray-300 hover:underline"
+            onClick={() => navigation("/operation-theatre")}
           >
             Operation Theater
           </Text>
