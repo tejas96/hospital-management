@@ -9,13 +9,14 @@ import {
   RadioGroup,
 } from "@material-ui/core";
 import { Send } from "@material-ui/icons";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import {
   Button,
   DateTimePicker,
   DropDown,
   Input,
+  Modal,
   Text,
 } from "src/common/components";
 import { disease } from "src/common/const";
@@ -131,6 +132,8 @@ export const BookAppointmentOption: React.FC<{}> = () => {
     treatmentType: "",
     dateAndTime: new Date(),
   });
+  const [otp, setOtp] = useState<number>(0);
+  const [showOtpModal, setOtpShowModal] = useState(false);
   const [patient, setPatient] = useState<Patient | null>(null);
   const [showInputs, setShowInputs] = useState(false);
   const [showBookSuccessMessage, setShowBookSuccessMessage] = useState(false);
@@ -146,20 +149,32 @@ export const BookAppointmentOption: React.FC<{}> = () => {
     },
     [patientDetails]
   );
+  const [sendOtp] = useApi();
+  const [verifyOtp] = useApi();
+
   const checkPatientExistOrNot = useCallback(() => {
-    if (patientDetails.phoneNumber) {
-      fetchPatientByPhoneNumber(
-        `/ipd-opd/patient/${patientDetails.phoneNumber}`,
-        ApiMethods.GET
-      )
-        .then((res) => {
-          setPatient(res.data);
-          setShowInputs(true);
+    //verify mobile number using regex
+    if (patientDetails.phoneNumber.match(/^[0-9]{10}$/)) {
+      toast
+        .promise(
+          sendOtp(
+            `/authUser/sendOtp/${patientDetails.phoneNumber}`,
+            ApiMethods.GET
+          ),
+          {
+            loading: "Sending OTP...",
+            success: "OTP sent successfully",
+            error: "Something went wrong",
+          }
+        )
+        .then(() => {
+          setOtpShowModal(true);
         })
-        .catch((err) => {
-          setPatient(null);
-          setShowInputs(true);
+        .catch(() => {
+          toast.error("Something went wrong");
         });
+    } else {
+      toast.error("Please enter valid phone number");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [patientDetails]);
@@ -180,6 +195,34 @@ export const BookAppointmentOption: React.FC<{}> = () => {
       doctorId: findDisease?.doctorAssociated.id || "",
     });
   };
+
+  const handleVerifyOtpClick = useCallback(() => {
+    verifyOtp("/authUser/verifyOtp", ApiMethods.POST, {
+      otp: otp,
+      phoneNumber: patientDetails.phoneNumber,
+    })
+      .then(() => {
+        setOtpShowModal(false);
+        toast.success("OTP verified successfully");
+        if (patientDetails.phoneNumber) {
+          fetchPatientByPhoneNumber(
+            `/ipd-opd/patient/${patientDetails.phoneNumber}`,
+            ApiMethods.GET
+          )
+            .then((res) => {
+              setPatient(res.data);
+              setShowInputs(true);
+            })
+            .catch((err) => {
+              setPatient(null);
+              setShowInputs(true);
+            });
+        }
+      })
+      .catch(() => {
+        toast.error("Wrong OTP");
+      });
+  }, [patientDetails, otp]);
 
   const handleBookClick = useCallback(() => {
     let payload = {};
@@ -277,6 +320,7 @@ export const BookAppointmentOption: React.FC<{}> = () => {
                     <Input
                       value={patientDetails.phoneNumber}
                       onChange={handleChange}
+                      disabled
                       type="number"
                       label="Phone number"
                       name="phoneNumber"
@@ -318,6 +362,20 @@ export const BookAppointmentOption: React.FC<{}> = () => {
               />
             </Box>
           )}
+          <Modal open={showOtpModal} onClose={() => setOtpShowModal(false)}>
+            <Box className="flex items-center justify-center w-[300px] h-[300px] bg-white flex-col gap-5">
+              <Input
+                type={"number"}
+                value={otp}
+                onChange={({ target: { value } }) => {
+                  setOtp(value);
+                }}
+                placeholder="Enter Otp"
+                label={"Otp"}
+              />
+              <Button label="verify" onClick={handleVerifyOtpClick} />
+            </Box>
+          </Modal>
         </Box>
       ) : (
         <Box>
