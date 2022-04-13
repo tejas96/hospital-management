@@ -1,16 +1,17 @@
-import { Box, Divider } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import React from "react";
+import hms from "src/assets/hms.jpg";
+import inventory from "src/assets/inventory.jpg";
+import ipdopd from "src/assets/ipd.jpg";
+import ot from "src/assets/ot.jpg";
 import { Button, Footer, Input, Text } from "src/common/components";
 import ChatBot from "src/pages/chatBot";
 import useLoginContainer from "src/pages/login/container";
 import { InputContainer } from "src/pages/login/style";
 import "./heartPulse.css";
-import inventory from "src/assets/inventory.jpg";
-import ot from "src/assets/ot.jpg";
-import ipdopd from "src/assets/ipd.jpg";
-import hms from "src/assets/hms.jpg";
 const Login: React.FC = () => {
-  const { loginState, handleChange, handleSubmit } = useLoginContainer();
+  const { loginState, handleChange, handleSubmit, isPatientLogin } =
+    useLoginContainer();
   return (
     <>
       <Box className=" h-screen w-screen flex justify-center items-center page-1 relative gap-10">
@@ -45,23 +46,27 @@ const Login: React.FC = () => {
               label={"Id"}
               className="border border-primary bg-white rounded"
             />
-            <Input
-              autoComplete="on"
-              fullWidth
-              onChange={handleChange}
-              name={"password"}
-              type={"password"}
-              value={loginState.password}
-              style={{ margin: "10px 0" }}
-              variant="outlined"
-              label={"Password"}
-              className="border border-primary bg-white rounded"
-            />
-            <Button
-              onClick={handleSubmit}
-              style={{ margin: "10px 0" }}
-              label="Login"
-            />
+            {!isPatientLogin && (
+              <Input
+                autoComplete="on"
+                fullWidth
+                onChange={handleChange}
+                name={"password"}
+                type={"password"}
+                value={loginState.password}
+                style={{ margin: "10px 0" }}
+                variant="outlined"
+                label={"Password"}
+                className="border border-primary bg-white rounded"
+              />
+            )}
+            <Box className="flex gap-10">
+              <Button
+                onClick={handleSubmit}
+                style={{ margin: "10px 0", color: "white" }}
+                label={isPatientLogin ? "Patient Login" : "Login"}
+              />
+            </Box>
           </InputContainer>
         </form>
       </Box>

@@ -11,6 +11,7 @@ import {
   OnlineAppointments,
   OperationTheatre,
   Hms,
+  PatientBookingHistory,
 } from "src/pages";
 export interface IRoute {
   path: string;
@@ -99,6 +100,13 @@ const routes: Array<IRoute> = [
     authorizers: [UserRoles.ADMIN],
     isProtectiveRoute: true,
     key: "reports",
+  },
+  {
+    path: "/patient-booking-history",
+    element: PatientBookingHistory,
+    isProtectiveRoute: false,
+    authorizers: [],
+    key: "patient booking history",
   },
 ];
 

@@ -16,7 +16,7 @@ const useLoginContainer = () => {
     hospitalId: "",
     password: "",
   });
-
+  const [isPatientLogin, setIsPatientLogin] = useState(false);
   useEffect(() => {
     if (!session.sessionUserLoading && loggedInUser.user?.role === "Admin")
       navigate("/");
@@ -30,14 +30,32 @@ const useLoginContainer = () => {
   }, [session, loggedInUser]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const property: string = e.target.name;
+    const value: string = e.target.value;
+    if (!isPatientLogin && property === "hospitalId" && value.startsWith("#")) {
+      setIsPatientLogin(true);
+    }
+    if (isPatientLogin && property === "hospitalId" && !value.startsWith("#")) {
+      setIsPatientLogin(false);
+    }
     setLoginState({
       ...loginState,
-      [e.target.name]: e.target.value,
+      [property]: value,
     });
   };
+
   const handleSubmit = () => {
+    let id = loginState.hospitalId;
+    let password = loginState.password;
+    if (isPatientLogin) {
+      const patientId = id.substring(1);
+      console.log(patientId);
+      navigate("/patient-booking-history?id=" + patientId);
+      return;
+    }
+
     session
-      .login(loginState.hospitalId, loginState.password)
+      .login(id, password)
       .then(() => {
         toast.success("Login Successful");
       })
@@ -49,6 +67,7 @@ const useLoginContainer = () => {
     loginState,
     handleChange,
     handleSubmit,
+    isPatientLogin,
   };
 };
 

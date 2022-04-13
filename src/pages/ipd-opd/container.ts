@@ -4,6 +4,8 @@ import { ApiMethods, Patient } from "src/model";
 import produce from "immer";
 import toast from "react-hot-toast";
 import * as yup from "yup";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+const auth = getAuth();
 interface AppointmentBookingState {
   patient: Patient | null;
   error: any;
@@ -35,6 +37,22 @@ const useIpdOpdContainer = () => {
   const [fetchPatientByPhoneNumber, fetchPatientByPhoneNumberState] =
     useApi<Patient>();
   const [registerPatient] = useApi();
+
+  const _createPatientUser = useCallback((id) => {
+    // const email = id + "@aspr.com";
+    // const password = "Health@1234";
+    // createUserWithEmailAndPassword(auth, email, password)
+    //   .then((userCredential) => {
+    //     // Signed in
+    //     toast.success("Patient Registered Successfully");
+    //     // ...
+    //   })
+    //   .catch((error) => {
+    //     const errorMessage = error.message;
+    //     toast.error(errorMessage);
+    //     // ..
+    //   });
+  }, []);
 
   const handlePhoneNumberSubmit = useCallback(() => {
     if (
@@ -117,6 +135,8 @@ const useIpdOpdContainer = () => {
           registerPatient("/ipd-opd/patient", ApiMethods.POST, {
             ...patientRegistrationData.patient,
             phoneNumber: phoneNumber.phoneNumber,
+          }).then((res) => {
+            _createPatientUser(res.data);
           }),
           {
             loading: "Registering Patient",
