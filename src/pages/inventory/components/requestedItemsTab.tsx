@@ -47,7 +47,6 @@ const RequestedItems: React.FC<IProps> = () => {
               <TableRow>
                 <TableCell align="right">Name</TableCell>
                 <TableCell align="right">Requested quantity</TableCell>
-                <TableCell align="right">Unit price</TableCell>
                 <TableCell align="right">Status</TableCell>
               </TableRow>
             </TableHead>
@@ -56,7 +55,6 @@ const RequestedItems: React.FC<IProps> = () => {
                 <TableRow key={row.name}>
                   <TableCell align="right">{row.name}</TableCell>
                   <TableCell align="right">{row.qty}</TableCell>
-                  <TableCell align="right">$.{row.price}</TableCell>
                   <TableCell align="right">
                     <Tooltip title={row.status}>
                       <FiberManualRecord
