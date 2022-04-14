@@ -1,8 +1,20 @@
-import { Box, CircularProgress } from "@material-ui/core";
+import {
+  Box,
+  Chip,
+  CircularProgress,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@material-ui/core";
 import moment from "moment";
 import React, { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { Footer, HeaderAndDrawer, Text } from "src/common/components";
+import { disease } from "src/common/const";
 import { useApi } from "src/hooks";
 import { ApiMethods, Booking } from "src/model";
 
@@ -19,32 +31,62 @@ const BookingHistory = () => {
       <Text variant="h4" align="left">
         Your Booking History
       </Text>
-      <Box className="min-h-screen w-screen justify-center items-center flex gap-10">
+      <Box className="flex bg-none justify-start items-center flex-col min-h-screen">
         {fetchBookingState.loading ? (
-          <CircularProgress />
-        ) : fetchBookingState.error || !fetchBookingState.data?.length ? (
-          <Text variant="h5">No bookings found</Text>
+          <CircularProgress className="text-center" />
+        ) : fetchBookingState.error || !fetchBookingState.data ? (
+          <Text>Data not available</Text>
         ) : (
-          fetchBookingState.data.map((booking) => (
-            <Box className="p-4 rounded shadow-2xl flex flex-col gap-2 justify-start items-start bg-gradient-to-tr from-secondary to-primary text-white">
-              <Text variant="body1">
-                <strong>Booking date :</strong>{" "}
-                {moment(Number(booking.createdAt)).format("DD MMM YYYY hh:mm")}
-              </Text>
-              <Text variant="body1">
-                <strong>Appointment date :</strong>{" "}
-                {moment(Number(booking.dateAndTime)).format(
-                  "DD MMM YYYY hh:mm"
-                )}
-              </Text>
-              <Text variant="body1">
-                <strong>Treatment :</strong> {booking.treatmentType}
-              </Text>
-              <Text variant="body1">
-                <strong>Ward :</strong> {booking.wardType}
-              </Text>
-            </Box>
-          ))
+          <TableContainer className="bg-none" component={Paper}>
+            <Table aria-label="customized table">
+              <TableHead>
+                <TableRow>
+                  <TableCell align="right">#</TableCell>
+                  <TableCell align="right">Doctor</TableCell>
+                  <TableCell align="right">Treatment</TableCell>
+                  <TableCell align="right">Appointment Time</TableCell>
+                  <TableCell align="right">Booking Date</TableCell>
+                  <TableCell align="right">Ward</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {fetchBookingState.data.map((data, index) => (
+                  <TableRow>
+                    <TableCell align="right">{index + 1}</TableCell>
+                    <TableCell align="right">
+                      {
+                        disease.find(
+                          (item) => item.doctorAssociated.id === data.doctorId
+                        )?.doctorAssociated.name
+                      }
+                    </TableCell>
+                    <TableCell align="right">{data.treatmentType}</TableCell>
+                    <TableCell align="right">
+                      {`${moment(+data.dateAndTime).format(
+                        "DD MMM YYYY HH:mm"
+                      )} (${moment(+data.dateAndTime).fromNow()})`}
+                    </TableCell>
+                    <TableCell align="right">
+                      {data?.updatedAt
+                        ? `${moment(+data.updatedAt).format(
+                            "DD MMM YYYY HH:mm"
+                          )} (${moment(+data.updatedAt).fromNow()})`
+                        : "-"}
+                    </TableCell>
+                    <TableCell align="right">
+                      <Chip
+                        className="w-16 text-white"
+                        label={data.wardType}
+                        color={
+                          data.wardType === "IPD" ? "primary" : "secondary"
+                        }
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         )}
       </Box>
       <Footer />
