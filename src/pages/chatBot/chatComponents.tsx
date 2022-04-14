@@ -90,31 +90,51 @@ export const ChooseOption: React.FC<IChatOption> = ({
 
 export const DoctorsSuggestion: React.FC<{}> = () => {
   const [fetchDoctors, doctorRecord] = useApi<Array<Doctor>>();
+  const [selectedDisease, setSelectedDisease] = useState<string>("");
 
+  const handleDiseaseClick = useCallback((disease) => {
+    setSelectedDisease(disease);
+  }, []);
   useEffect(() => {
     fetchDoctors("/hospital/doctors", ApiMethods.GET);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <Box>
-      {doctorRecord.loading ? (
-        <Text>Please wait i am sending...</Text>
-      ) : doctorRecord.data?.length ? (
-        doctorRecord.data.map((item) => (
-          <Box className="p-5 mt-5 flex flex-col mx-10 justify-center w-60 items-center relative">
-            <Avatar
-              style={{ height: "100px", width: "100px" }}
-              alt="Remy Sharp"
-              src={item.profilePic}
-            />
-            <Text variant="subtitle1">{`${item.honorific}. ${item.fullName}`}</Text>
-            <Text variant="caption">{item.expertise.join(", ")}</Text>
+    <>
+      <Box className="flex flex-col gap-5">
+        <Text>Choose Disease</Text>
+        {[
+          "cancer",
+          "dengu",
+          "diabetes",
+          "corona",
+          "general physician",
+          "obstetrician",
+        ].map((item) => (
+          <Box
+            onClick={() => handleDiseaseClick(item)}
+            className="p-4 shadow-2xl cursor-pointer"
+          >
+            <Text>{item}</Text>
           </Box>
-        ))
-      ) : (
-        <Text>No doctors found</Text>
-      )}
-    </Box>
+        ))}
+      </Box>
+      <Box>
+        {doctorRecord.data.map((item) => {
+          return item.expertise.includes(selectedDisease) ? (
+            <Box className="p-5 mt-5 flex flex-col mx-10 justify-center w-60 items-center relative">
+              <Avatar
+                style={{ height: "100px", width: "100px" }}
+                alt="Remy Sharp"
+                src={item.profilePic}
+              />
+              <Text variant="subtitle1">{`${item.honorific}. ${item.fullName}`}</Text>
+              <Text variant="caption">{item.expertise.join(", ")}</Text>
+            </Box>
+          ) : null;
+        })}
+      </Box>
+    </>
   );
 };
 
