@@ -18,11 +18,11 @@ const useOnlineBookings = () => {
     setSelectRecord(record);
     setOpenModal(true);
   };
-  const deleteRecord = async (id: string) => {
+  const deleteRecord = async (id: string, status: string) => {
     toast
       .promise(
         deleteRecordApi(
-          `/hospital/online-book-request/${id}`,
+          `/hospital/online-book-request/${id}/${status}/${selectRecord.phoneNumber}`,
           ApiMethods.DELETE,
           {}
         ),
@@ -52,7 +52,7 @@ const useOnlineBookings = () => {
         }
       )
       .then(() => {
-        deleteRecord(selectRecord.id);
+        deleteRecord(selectRecord.id, "Accepted");
         setOpenModal(false);
       });
   };
@@ -107,7 +107,7 @@ const useOnlineBookings = () => {
           });
       }
     } else {
-      deleteRecord(selectRecord.id);
+      deleteRecord(selectRecord.id, "Rejected");
     }
   };
   const handleModalClose = () => {

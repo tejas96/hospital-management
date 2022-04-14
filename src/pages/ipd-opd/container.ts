@@ -128,6 +128,10 @@ const useIpdOpdContainer = () => {
       lastName: yup.string().required("Last Name is required"),
       age: yup.number().typeError("Invalid age").required("Age is required"),
     });
+    if (patientRegistrationData?.age <= 0) {
+      toast.error("Age should be greater than 0");
+      return;
+    }
     schema
       .validate(patientRegistrationData.patient)
       .then(() => {

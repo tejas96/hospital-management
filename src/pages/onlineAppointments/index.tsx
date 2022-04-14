@@ -47,7 +47,7 @@ const OnlineAppointments: React.FC<{}> = () => {
   return (
     <>
       <HeaderAndDrawer />
-      <Box>
+      <Box className="min-h-screen">
         <Text className="float-left p-4" variant="h4">
           Online Bookings
         </Text>

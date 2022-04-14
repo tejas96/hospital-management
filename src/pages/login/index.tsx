@@ -114,18 +114,34 @@ const Login: React.FC = () => {
         </Box>
       </Box>
       <Box className="flex justify-center items-center w-full h-full gap-10 page-4">
-        <Box>
+        <Box className="w-1/2">
           <Text variant="h3" className="text-white">
             IPD/OPD
           </Text>
           <img src={ipdopd} className="mt-10" />
         </Box>
         <Box className="h-1/2 w-[1px] bg-white"></Box>
-        <Text className="text-white w-1/2">
-          Complete Inpatient Management Module that manages all your hospital
-          inpatient functionality from Patient registration to the billing with
-          a complete tracking of Patient records.
-        </Text>
+        <Box>
+          <Text className="text-white w-1/2">
+            In an effective OPD, the entire cycle from Registration, To Patient
+            History, Diagnosis to Prescription is stored and managed
+            efficiently. Patient registration in the OPD as well as to book,
+            confirm and cancel appointments. The IPD module commences when the
+            patient is being registered and allotted bed in the ward. It deals
+            with the complete treatment and services provided to the patient
+            during his stay in the hospital.
+          </Text>
+          <Text className="text-white w-1/2" align="left" variant="h5">
+            Features
+          </Text>
+          <Text className="w-1/2">
+            Daily Appointment scheduler.{" "}
+            <span className="text-white h-[20px] w-[1px]">|</span> Appointment
+            SMS alerts to Patients. Assign ward and bed to patient. Admission
+            and Bed Allocation. Details of disease. Print bill quickly for Visit
+            charges
+          </Text>
+        </Box>
       </Box>
       <Box className="page-2 w-screen h-screen relative">
         <ul className="circles">

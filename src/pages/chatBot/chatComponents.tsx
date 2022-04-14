@@ -120,7 +120,7 @@ export const DoctorsSuggestion: React.FC<{}> = () => {
         ))}
       </Box>
       <Box>
-        {doctorRecord.data.map((item) => {
+        {doctorRecord.data?.map?.((item) => {
           return item.expertise.includes(selectedDisease) ? (
             <Box className="p-5 mt-5 flex flex-col mx-10 justify-center w-60 items-center relative">
               <Avatar
@@ -260,6 +260,10 @@ export const BookAppointmentOption: React.FC<{}> = () => {
       treatmentType: yup.string().required("Treatment type is required"),
       dateAndTime: yup.date().required("Date and time is required"),
     });
+    if (payload.age <= 0) {
+      toast.error("Age should be greater than 0");
+      return;
+    }
     schema
       .validate(payload)
       .then(() => {

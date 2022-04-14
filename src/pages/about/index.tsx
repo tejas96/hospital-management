@@ -27,13 +27,6 @@ const About: React.FC<IProps> = () => {
       <Box className="w-full min-h-screen h-auto flex-col flex justify-center items-center">
         <Text variant="h1">ASPR Hospital</Text>
         <Divider light className="w-96" style={{ margin: "10px 0" }} />
-        <Text variant="caption" className="mt-5">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt,
-          tempore cum? Aliquid sunt ex earum et alias, quasi recusandae
-          architecto assumenda. Repudiandae fuga qui incidunt exercitationem ab
-          a blanditiis cupiditate!
-        </Text>
-
         <Box className="mt-15 flex-wrap flex w-full justify-center items-center h-auto">
           {data?.length &&
             data.map((item) => (

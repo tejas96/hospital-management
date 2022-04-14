@@ -45,7 +45,7 @@ const ListOfPatient = ({ OperationPatientList = [] }) => {
     [selectedItem]
   );
   return (
-    <>
+    <Box className="min-h-screen">
       {OperationPatientList?.length > 0 ? (
         <TableContainer component={Paper}>
           <Table aria-label="customized table">
@@ -103,7 +103,7 @@ const ListOfPatient = ({ OperationPatientList = [] }) => {
           </Box>
         </Box>
       </Modal>
-    </>
+    </Box>
   );
 };
 

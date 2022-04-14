@@ -77,6 +77,9 @@ const BookAppointment: React.FC<IProps> = ({ patientData, onBookingDone }) => {
           )
           .then(() => {
             onBookingDone();
+          })
+          .catch((err) => {
+            toast.error("Booking limit reached for today");
           });
       })
       .catch((err) => {
