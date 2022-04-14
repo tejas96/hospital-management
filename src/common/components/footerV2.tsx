@@ -25,31 +25,31 @@ const FooterV2: React.FC = () => {
             variant={"caption"}
             className="text-white hover:text-gray-300 hover:underline"
           >
-            Dr. Indira Hinduja
+            Dr. Priyanka
           </Text>
           <Text
             variant={"caption"}
             className="text-white hover:text-gray-300 hover:underline"
           >
-            Dr. Jayashree Mondkar
+            Dr. Sapana
           </Text>
           <Text
             variant={"caption"}
             className="text-white hover:text-gray-300 hover:underline"
           >
-            Dr. Anandabai Joshi
+            Dr. Aishvarya
           </Text>
           <Text
             variant={"caption"}
             className="text-white hover:text-gray-300 hover:underline"
           >
-            Dr. Ramakanth Panda
+            Dr. Reshma
           </Text>
           <Text
             variant={"caption"}
             className="text-white hover:text-gray-300 hover:underline"
           >
-            Dr. Kamini Rao
+            Dr. Yogita
           </Text>
         </Box>
         <Box className="text-center flex flex-col gap-2">
@@ -84,7 +84,13 @@ const FooterV2: React.FC = () => {
             variant={"caption"}
             className="text-white hover:text-gray-300 hover:underline"
           >
-            Heart surgery
+            Obstetrician
+          </Text>
+          <Text
+            variant={"caption"}
+            className="text-white hover:text-gray-300 hover:underline"
+          >
+            General Physician
           </Text>
         </Box>
         <Box className="text-center flex flex-col gap-2">
@@ -115,14 +121,9 @@ const FooterV2: React.FC = () => {
           <Text
             variant={"caption"}
             className="text-white hover:text-gray-300 hover:underline"
+            onClick={() => navigation("/reports")}
           >
-            Multi floor wards
-          </Text>
-          <Text
-            variant={"caption"}
-            className="text-white hover:text-gray-300 hover:underline"
-          >
-            Advance Equipments
+            HMS
           </Text>
         </Box>
       </Box>

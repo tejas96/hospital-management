@@ -91,38 +91,59 @@ const Login: React.FC = () => {
             <img src={inventory} className="mt-10" />
           </Box>
           <Box className="h-1/2 w-[1px] bg-white"></Box>
-          <Text className="text-white w-1/2">
-            The inventory module spreads across the entire hospital from wards,
-            OT, pharmacies etc. and regulates the complete stock movement across
-            the entire hospital.
-          </Text>
+          <Box className="w-1/2 pr-3">
+            <Text className="text-white w-[70%]">
+              The inventory module spreads across the entire hospital from
+              wards, OT, pharmacies etc. and regulates the complete stock
+              movement across the entire hospital.
+            </Text>
+            <Text className="text-primary" align="left" variant="h5">
+              Features
+            </Text>
+            <ul className="list-none text-white">
+              <li>Purchase indents and approval</li>
+              <li>Stock reorder</li>
+            </ul>
+          </Box>
         </Box>
       </Box>
       <Box className="page-3 w-screen h-screen flex justify-center items-center gap-10">
-        <Text className="text-white w-1/2">
-          Operation theater module caters to the scheduling of operation
-          theaters, surgery team, patient tracking, operation theater consumable
-          management, accounting and Operation theater roster and notes with
-          Death and Birth certificates.
-        </Text>
+        <Box className="w-1/2 text-right">
+          <Text className="text-white" align="right">
+            Operation theater module caters to the scheduling of operation
+            theaters, surgery team, patient tracking, operation theater
+            consumable management, accounting and Operation theater roster and
+            notes with Death and Birth status.
+          </Text>
+          <Text className="text-primary" variant="h5" align="right">
+            Features
+          </Text>
+          <ul className="list-none text-white">
+            <li>O.T. Reservation for a scheduled surgery</li>
+            <li>Team of Doctors/Assistants involved in the operation</li>
+            <li>Consultant Instructions in O.T</li>
+            <li>Birth / Death Certificates</li>
+          </ul>
+        </Box>
+
         <Box className="h-1/2 w-[1px] bg-white"></Box>
-        <Box>
-          <Text variant="h3" className="text-white">
+        <Box className="w-1/2">
+          <Text align="left" variant="h3" className="text-white">
             Operation Theater
           </Text>
           <img src={ot} className="mt-10" />
         </Box>
       </Box>
       <Box className="flex justify-center items-center w-full h-full gap-10 page-4">
-        <Box className="w-1/2">
-          <Text variant="h3" className="text-white">
+        <Box className="w-[40%]">
+          <Text align="right" variant="h3" className="text-white">
             IPD/OPD
           </Text>
-          <img src={ipdopd} className="mt-10" />
+          <img src={ipdopd} className="mt-10 ml-auto" />
         </Box>
         <Box className="h-1/2 w-[1px] bg-white"></Box>
-        <Box>
-          <Text className="text-white w-1/2">
+        <Box className="w-[60%] pr-3">
+          <Text className="text-white w-[70%]">
             In an effective OPD, the entire cycle from Registration, To Patient
             History, Diagnosis to Prescription is stored and managed
             efficiently. Patient registration in the OPD as well as to book,
@@ -131,16 +152,16 @@ const Login: React.FC = () => {
             with the complete treatment and services provided to the patient
             during his stay in the hospital.
           </Text>
-          <Text className="text-white w-1/2" align="left" variant="h5">
+          <Text className="text-primary w-1/2" align="left" variant="h5">
             Features
           </Text>
-          <Text className="w-1/2">
-            Daily Appointment scheduler.{" "}
-            <span className="text-white h-[20px] w-[1px]">|</span> Appointment
-            SMS alerts to Patients. Assign ward and bed to patient. Admission
-            and Bed Allocation. Details of disease. Print bill quickly for Visit
-            charges
-          </Text>
+          <ul className="list-none text-white">
+            <li>Daily Appointment scheduler</li>
+            <li>Appointment SMS alerts to Patients</li>
+            <li> Assign ward and bed to patient</li>
+            <li> Admission and Bed Allocation</li>
+            <li>Details of disease. Print bill quickly for Visit charges</li>
+          </ul>
         </Box>
       </Box>
       <Box className="page-2 w-screen h-screen relative">
@@ -157,10 +178,20 @@ const Login: React.FC = () => {
           <li></li>
         </ul>
         <Box className="flex justify-center items-center w-full h-full gap-10">
-          <Text className="text-white w-1/2">
-            User wise Collection reports, Department wise Sales and Daily OPD /
-            IPD Report (Department wise).
-          </Text>
+          <Box className="w-1/2 text-right">
+            <Text align="right" className="text-white">
+              User wise Collection reports, Department wise Sales and Daily OPD
+              / IPD Report (Department wise).
+            </Text>
+            <Text align="right" variant="h5" className="text-primary">
+              Features
+            </Text>
+            <ul className="list-none text-white">
+              <li>Statistical report of death/birth</li>
+              <li>Statistical report of diseases</li>
+            </ul>
+          </Box>
+
           <Box className="h-1/2 w-[1px] bg-white"></Box>
           <Box>
             <Text variant="h3" className="text-white">
