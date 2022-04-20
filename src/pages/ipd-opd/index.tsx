@@ -27,16 +27,25 @@ const IPD_OPD: React.FC<IProps> = () => {
     fetchPatientByPhoneNumberState,
     handlePatientRegisterSubmit,
     screen,
+    editState,
+    setEditState,
+    handleEditPatientClick,
   } = useIpdOpdContainer();
   const handleOnBookingDone = useCallback(() => {
     setOpen(false);
     window.location.reload();
   }, []);
+
   return (
     <>
       <HeaderAndDrawer />
       <Box className="min-w-full min-h-screen flex flex-col bg-none">
         <Box className="flex justify-end items-center my-2 p-2 gap-7">
+          <Button
+            variant="text"
+            onClick={handleEditPatientClick}
+            label="Edit patient"
+          />
           <Button
             variant="text"
             onClick={() => navigate("/online-appointment")}
@@ -45,7 +54,13 @@ const IPD_OPD: React.FC<IProps> = () => {
           <Button onClick={() => setOpen(true)} label="Book Appointment" />
         </Box>
         <AppointmentBookingList />
-        <Modal onClose={() => setOpen(false)} open={open}>
+        <Modal
+          onClose={() => {
+            setOpen(false);
+            setEditState(false);
+          }}
+          open={open || editState}
+        >
           <Box className="bg-white relative md:w-[50%] w-[40%] sm:w-[90%] min-h-[50%] p-5 flex flex-col justify-center items-center">
             {(screen.patientAppointmentScreen ||
               screen.patientRegisterScreen) && (
@@ -77,6 +92,7 @@ const IPD_OPD: React.FC<IProps> = () => {
             )}
             {screen.patientRegisterScreen && (
               <RegisterPatient
+                editMode={editState}
                 onRegisterClick={handlePatientRegisterSubmit}
                 onChange={handlePatientRegisteredChanges}
                 data={patientRegistrationData.patient}

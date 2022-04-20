@@ -7,12 +7,14 @@ interface IProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   phoneNumber: string;
   onRegisterClick: () => void;
+  editMode: boolean;
 }
 const RegisterPatient: React.FC<IProps> = ({
   data,
   onChange,
   phoneNumber,
   onRegisterClick,
+  editMode,
 }) => {
   return (
     <Box className="flex flex-col justify-center items-center">
@@ -55,7 +57,10 @@ const RegisterPatient: React.FC<IProps> = ({
           name="phoneNumber"
         />
       </Box>
-      <Button onClick={onRegisterClick} label={"Register"} />
+      <Button
+        onClick={onRegisterClick}
+        label={editMode ? "Update" : "Register"}
+      />
     </Box>
   );
 };

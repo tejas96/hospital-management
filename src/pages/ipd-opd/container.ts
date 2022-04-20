@@ -11,6 +11,7 @@ interface AppointmentBookingState {
   error: any;
 }
 const useIpdOpdContainer = () => {
+  const [editState, setEditState] = useState<boolean>(false);
   const [phoneNumber, setPhoneNumber] = useState<{
     phoneNumber: string;
     error: string;
@@ -37,7 +38,7 @@ const useIpdOpdContainer = () => {
   const [fetchPatientByPhoneNumber, fetchPatientByPhoneNumberState] =
     useApi<Patient>();
   const [registerPatient] = useApi();
-
+  const [updatePatient] = useApi();
   const _createPatientUser = useCallback((id) => {
     // const email = id + "@aspr.com";
     // const password = "Health@1234";
@@ -76,8 +77,8 @@ const useIpdOpdContainer = () => {
 
           setScreen({
             patientExistScreen: false,
-            patientRegisterScreen: false,
-            patientAppointmentScreen: true,
+            patientRegisterScreen: editState,
+            patientAppointmentScreen: !editState,
           });
         })
         .catch((err) => {
@@ -99,7 +100,7 @@ const useIpdOpdContainer = () => {
         });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [phoneNumber]);
+  }, [phoneNumber, editState]);
 
   const handlePatientRegisteredChanges = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,26 +136,43 @@ const useIpdOpdContainer = () => {
     schema
       .validate(patientRegistrationData.patient)
       .then(() => {
-        toast.promise(
-          registerPatient("/ipd-opd/patient", ApiMethods.POST, {
-            ...patientRegistrationData.patient,
-            phoneNumber: phoneNumber.phoneNumber,
-          }).then((res) => {
-            _createPatientUser(res.data);
-          }),
-          {
-            loading: "Registering Patient",
-            success: "Done",
-            error: "Error!!!",
-          }
-        );
+        if (editState) {
+          toast.promise(
+            updatePatient(
+              `/ipd-opd/patient/${patientRegistrationData.patient.id}`,
+              ApiMethods.PUT,
+              patientRegistrationData.patient
+            ),
+            {
+              loading: "Updating Patient",
+              success: "Patient Updated Successfully",
+              error: "Error Updating Patient",
+            }
+          );
+        } else {
+          toast.promise(
+            registerPatient("/ipd-opd/patient", ApiMethods.POST, {
+              ...patientRegistrationData.patient,
+              phoneNumber: phoneNumber.phoneNumber,
+            }).then((res) => {
+              _createPatientUser(res.data);
+            }),
+            {
+              loading: "Registering Patient",
+              success: "Done",
+              error: "Error!!!",
+            }
+          );
+        }
       })
       .catch((err) => {
         toast.error(err.message);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [patientRegistrationData, phoneNumber]);
-
+  }, [patientRegistrationData, phoneNumber, editState]);
+  const handleEditPatientClick = useCallback(() => {
+    setEditState(true);
+  }, []);
   return {
     phoneNumber,
     setPhoneNumber,
@@ -165,6 +183,9 @@ const useIpdOpdContainer = () => {
     fetchPatientByPhoneNumberState,
     screen,
     patientRegistrationData,
+    editState,
+    setEditState,
+    handleEditPatientClick,
   };
 };
 
